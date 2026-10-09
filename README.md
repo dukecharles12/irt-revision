@@ -1,4 +1,5 @@
-# irt-revision
+# IRT Revision Desk
+
 Revision app for the CISI Investment, Risk & Taxation exam, served with Streamlit.
 
 - `irt-revision.html` is the whole app (topics, flashcards, quizzes, number practice, calculators).
@@ -14,4 +15,3 @@ Revision app for the CISI Investment, Risk & Taxation exam, served with Streamli
 
 1. Push this folder to a GitHub repository.
 2. Go to https://share.streamlit.io, sign in with GitHub, choose **Create app**, pick the repository, and set the main file to `streamlit_app.py`.
-
