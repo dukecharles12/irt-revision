@@ -1639,6 +1639,7 @@ const dirty = {}, timers = {}, busy = {};
 function setSave(t){const el=document.getElementById("savestate"); if(el) el.textContent=t}
 function persist(which){
   lsSet(which==="progress"?"irt.progress":"irt.custom", which==="progress"?P:CUSTOM);
+  if(window.IRT_REMOTE){ window.IRT_REMOTE.changed(); return }
   if(!dbRefs){ setSave("Saved in this browser"); return }
   dirty[which]=true; clearTimeout(timers[which]); timers[which]=setTimeout(()=>flush(which),800);
 }
@@ -1653,6 +1654,15 @@ async function flush(which){
 }
 (async function connect(){
   try{
+    // Hosted copies (e.g. Streamlit) can supply their own cross-device sync.
+    if(window.IRT_REMOTE){
+      window.IRT_REMOTE.attach({
+        get:()=>({progress:P, custom:CUSTOM}),
+        set:d=>{ P=Object.assign(blankProgress(), d.progress||{}); CUSTOM=Object.assign({items:[]}, d.custom||{}); lsSet("irt.progress",P); lsSet("irt.custom",CUSTOM); if(!QZ) render() },
+        status:setSave
+      });
+      return;
+    }
     if(!window.claude || !window.claude.use){ setSave("Saved in this browser"); return }
     const [user, db] = await Promise.all([window.claude.use("user"), window.claude.use("db")]);
     const uid = user ? await user.id() : null;
