@@ -102,6 +102,17 @@ table.tbl{border-collapse:collapse;width:100%;font-size:14px;min-width:420px}
 .tick{width:16px;height:16px;border-radius:4px;border:1.5px solid var(--line);flex:none;display:grid;place-items:center;font-size:11px;line-height:1}
 .tick.on{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
 .locked{border-style:dashed;background:transparent}
+.ch-secs{display:grid;gap:6px}
+.ch-sec{display:grid;grid-template-columns:auto 1fr auto auto;gap:10px;align-items:center;padding:9px 12px;border-radius:10px;background:var(--surface-2);text-decoration:none;color:inherit}
+.ch-sec:hover{outline:1px solid var(--line)}
+.ch-sec .num{font-size:12px;white-space:nowrap}
+.ch-sec .t{font-weight:500;min-width:0}
+@media (max-width:520px){.ch-sec{grid-template-columns:1fr auto}.ch-sec .num{display:none}.ch-sec>span:nth-child(3){display:none}}
+.crumb{color:inherit;text-decoration:none}.crumb:hover{text-decoration:underline}
+.sibs{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;margin-top:4px}
+.sibs::-webkit-scrollbar{display:none}
+.sibs a{white-space:nowrap;padding:4px 11px;border-radius:999px;font-size:13px;text-decoration:none;color:var(--muted);border:1px solid var(--line)}
+.sibs a[aria-current="page"]{background:var(--accent-soft);color:var(--accent);border-color:transparent}
 .weak-list{display:grid;gap:8px}
 .weak{display:flex;justify-content:space-between;gap:10px;align-items:center;font-size:14px}
 .hist{display:grid;gap:6px;font-size:14px}
@@ -1611,12 +1622,18 @@ const XREAL = {
 };
 
 const SECTIONS = [
-  {key:"cash",hash:"cash",nav:"Cash",eyebrow:"Chapter 1 · Section 1",title:"Cash and Cash Equivalents",topics:CASH_TOPICS,cards:CASH_CARDS,questions:CASH_QUESTIONS,nums:CASH_NUM},
-  {key:"fi",hash:"fixed-income",nav:"Fixed Income",eyebrow:"Chapter 1 · Section 2",title:"Fixed Income Securities (Bonds)",topics:FI_TOPICS,cards:FI_CARDS,questions:FI_QUESTIONS,nums:FI_NUM},
-  {key:"eq",hash:"equities",nav:"Equities",eyebrow:"Chapter 1 · Section 3",title:"Equities",topics:EQ_TOPICS,cards:EQ_CARDS,questions:EQ_QUESTIONS,nums:EQ_NUM},
-  {key:"pr",hash:"property",nav:"Property",eyebrow:"Chapter 1 · Section 4",title:"Property",topics:PR_TOPICS,cards:PR_CARDS,questions:PR_QUESTIONS,nums:PR_NUM},
-  {key:"oa",hash:"other-assets",nav:"Other Assets",eyebrow:"Chapter 1 · Section 5",title:"Other (Alternative) Assets",topics:OA_TOPICS,cards:OA_CARDS,questions:OA_QUESTIONS,nums:OA_NUM}
+  {key:"cash",ch:"ch1",hash:"cash",nav:"Cash",eyebrow:"Chapter 1 · Section 1",title:"Cash and Cash Equivalents",topics:CASH_TOPICS,cards:CASH_CARDS,questions:CASH_QUESTIONS,nums:CASH_NUM},
+  {key:"fi",ch:"ch1",hash:"fixed-income",nav:"Fixed Income",eyebrow:"Chapter 1 · Section 2",title:"Fixed Income Securities (Bonds)",topics:FI_TOPICS,cards:FI_CARDS,questions:FI_QUESTIONS,nums:FI_NUM},
+  {key:"eq",ch:"ch1",hash:"equities",nav:"Equities",eyebrow:"Chapter 1 · Section 3",title:"Equities",topics:EQ_TOPICS,cards:EQ_CARDS,questions:EQ_QUESTIONS,nums:EQ_NUM},
+  {key:"pr",ch:"ch1",hash:"property",nav:"Property",eyebrow:"Chapter 1 · Section 4",title:"Property",topics:PR_TOPICS,cards:PR_CARDS,questions:PR_QUESTIONS,nums:PR_NUM},
+  {key:"oa",ch:"ch1",hash:"other-assets",nav:"Other Assets",eyebrow:"Chapter 1 · Section 5",title:"Other (Alternative) Assets",topics:OA_TOPICS,cards:OA_CARDS,questions:OA_QUESTIONS,nums:OA_NUM}
 ];
+// Chapters group sections. Add a chapter here, then give its sections ch:"<key>".
+const CHAPTERS = [
+  {key:"ch1", num:1, hash:"chapter-1", title:"Asset Classes"}
+];
+for(const ch of CHAPTERS) ch.sections = SECTIONS.filter(s=>s.ch===ch.key);
+const CH = Object.fromEntries(CHAPTERS.map(c=>[c.key,c]));
 for(const sec of SECTIONS){ for(const x of sec.topics.concat(sec.cards,sec.questions)) x.sec=sec.key; for(const v of Object.values(sec.nums)) v.sec=sec.key }
 const TOPICS = SECTIONS.flatMap(s=>s.topics), CARDS = SECTIONS.flatMap(s=>s.cards), QUESTIONS = SECTIONS.flatMap(s=>s.questions);
 const NUM_TYPES = Object.assign({}, ...SECTIONS.map(s=>s.nums));
@@ -1719,18 +1736,21 @@ let QZ = null;          // active quiz
 let FC = null;          // flashcard session
 let NP = null;          // current number problem
 let PASTE_PREVIEW = null;
+let CUR_CH = CHAPTERS[0];
 const view = () => document.getElementById("view");
 function route(){
   const h = (location.hash||"#home").slice(1);
   const s = SECTIONS.find(x=>x.hash===h);
+  const c = s ? CH[s.ch] : CHAPTERS.find(x=>x.hash===h);
   if(s && s!==CUR){ CUR=s; FC=null; NP=null; PASTE_PREVIEW=null; if(QZ&&QZ.sec!==s.key) QZ=null }
+  if(!s && c) CUR_CH=c;
   const nav=document.querySelector(".nav");
-  nav.innerHTML = `<a href="#home" aria-current="${s?"false":"page"}">Home</a>`+SECTIONS.map(x=>`<a href="#${x.hash}" aria-current="${s===x?"page":"false"}">${x.nav}</a>`).join("");
+  nav.innerHTML = `<a href="#home" aria-current="${c?"false":"page"}">Home</a>`+CHAPTERS.map(x=>`<a href="#${x.hash}" aria-current="${c===x?"page":"false"}">Chapter ${x.num}</a>`).join("");
   { const cur=nav.querySelector('[aria-current="page"]'); if(cur) nav.scrollLeft+=cur.getBoundingClientRect().left-nav.getBoundingClientRect().left-nav.clientWidth/2+cur.offsetWidth/2; }
-  return s ? "section" : "home";
+  return s ? "section" : c ? "chapter" : "home";
 }
 function goSection(key){ const s=SEC[key]; if(location.hash!=="#"+s.hash){ location.hash="#"+s.hash; return true } CUR=s; return false }
-function render(){ const page=route(); view().innerHTML = page==="home" ? homeHTML() : sectionHTML(); afterRender() }
+function render(){ const page=route(); view().innerHTML = page==="home" ? homeHTML() : page==="chapter" ? chapterHTML() : sectionHTML(); afterRender() }
 let PENDING_TOPIC=null;
 window.addEventListener("hashchange",()=>{OPEN_TOPIC=PENDING_TOPIC; PENDING_TOPIC=null; render(); window.scrollTo(0,0)});
 
@@ -1757,29 +1777,25 @@ function homeHTML(){
   </div>
   <div class="home-grid section-gap">
     <div class="stack">
-      <h2>Sections</h2>
-      ${SECTIONS.map(sec=>{
-        const sd=sec.topics.filter(t=>P.topicsDone[t.id]).length, n=sec.topics.length;
-        const qs=allQuestions().filter(q=>secOfQ(q)===sec.key);
+      <h2>Chapters</h2>
+      ${CHAPTERS.map(ch=>{
+        const ts=ch.sections.flatMap(x=>x.topics), sd=ts.filter(t=>P.topicsDone[t.id]).length, a=chapterStat(ch);
         return `<div class="panel sec-card">
         <div class="sec-head">
-          <div style="display:grid;gap:4px"><span class="eyebrow">${sec.eyebrow}</span><h3 style="font-size:20px">${esc(sec.title)}</h3></div>
-          <a class="btn primary" href="#${sec.hash}">Open ${esc(sec.nav)}</a>
+          <div style="display:grid;gap:4px"><span class="eyebrow">Chapter ${ch.num}</span><h3 style="font-size:20px">${esc(ch.title)}</h3></div>
+          <a class="btn primary" href="#${ch.hash}">Open Chapter ${ch.num}</a>
         </div>
         <div class="stack" style="gap:6px">
-          <div class="progressline"><span>${sd} of ${n} topics ticked off</span><span>${pct(sd/n)}</span></div>
-          <div class="bar"><span style="width:${sd/n*100}%"></span></div>
+          <div class="progressline"><span>${sd} of ${ts.length} topics ticked off · ${ch.sections.length} sections</span><span>${pct(sd/ts.length)}</span></div>
+          <div class="bar"><span style="width:${sd/ts.length*100}%"></span></div>
         </div>
-        <div class="row" style="font-size:14px;gap:16px">
-          <span><b class="num">${P.history.filter(h=>h.section===sec.key).length}</b> <span class="muted">quizzes</span></span>
-          <span><b class="num">${qs.filter(q=>P.q[q.id]).length}</b>/<span class="num">${qs.length}</span> <span class="muted">questions tried</span></span>
-          <span><b class="num">${sec.cards.filter(c=>P.cards[c.id]).length}</b>/<span class="num">${sec.cards.length}</span> <span class="muted">flashcards seen</span></span>
-        </div>
-        <div class="topic-dots">${sec.topics.map(t=>{const s=statFor(t.id);return `<a class="tdot" href="#${sec.hash}" data-act="opentopic" data-id="${t.id}" style="text-decoration:none;color:inherit"><span class="tick ${P.topicsDone[t.id]?"on":""}">${P.topicsDone[t.id]?"✓":""}</span><span class="t"><span class="num muted">${t.id}</span> ${esc(t.title)}</span>${s.n?`<span class="chip ${s.acc>=0.8?"good":s.acc>=0.6?"mid":"bad"}">${pct(s.acc)}</span>`:""}</a>`}).join("")}</div>
+        <div class="ch-secs">${ch.sections.map(sec=>{const n=sec.topics.length,d=sec.topics.filter(t=>P.topicsDone[t.id]).length,st=secStat(sec);
+          return `<a class="ch-sec" href="#${sec.hash}"><span class="num muted">${sec.eyebrow.replace(/^Chapter \d+ · /,"")}</span><span class="t">${esc(sec.nav)}</span><span class="muted" style="font-size:13px">${d}/${n} topics</span>${st.n?`<span class="chip ${st.acc>=0.8?"good":st.acc>=0.6?"mid":"bad"}">${pct(st.acc)}</span>`:`<span class="chip">Not tried</span>`}</a>`}).join("")}</div>
+        ${a.n?`<div class="row" style="font-size:14px;gap:16px"><span><b class="num">${P.history.filter(h=>ch.sections.some(x=>x.key===h.section)).length}</b> <span class="muted">quizzes</span></span><span><b class="num">${pct(a.acc)}</b> <span class="muted">accuracy across ${a.n} answers</span></span></div>`:""}
       </div>`}).join("")}
       <div class="panel locked" style="display:grid;gap:4px">
-        <span class="eyebrow">Next section</span>
-        <p class="muted">Send your next revision doc and it gets its own section here, with the same topics, quizzes and progress.</p>
+        <span class="eyebrow">Next chapter</span>
+        <p class="muted">Send your revision docs for the next chapter and it gets its own group here, with the same topics, quizzes and progress.</p>
       </div>
     </div>
     <div class="stack">
@@ -1795,16 +1811,63 @@ function homeHTML(){
   </div>`;
 }
 
+function secStat(sec){let r=0,w=0;for(const t of sec.topics){const x=statFor(t.id);r+=x.r;w+=x.w}return {r,w,n:r+w,acc:(r+w)?r/(r+w):null}}
+function chapterStat(ch){let r=0,w=0;for(const sec of ch.sections){const x=secStat(sec);r+=x.r;w+=x.w}return {r,w,n:r+w,acc:(r+w)?r/(r+w):null}}
+function secCardHTML(sec){
+  const sd=sec.topics.filter(t=>P.topicsDone[t.id]).length, n=sec.topics.length;
+  const qs=allQuestions().filter(q=>secOfQ(q)===sec.key);
+  return `<div class="panel sec-card">
+        <div class="sec-head">
+          <div style="display:grid;gap:4px"><span class="eyebrow">${sec.eyebrow.replace(/^Chapter \d+ · /,"")}</span><h3 style="font-size:20px">${esc(sec.title)}</h3></div>
+          <a class="btn primary" href="#${sec.hash}">Open ${esc(sec.nav)}</a>
+        </div>
+        <div class="stack" style="gap:6px">
+          <div class="progressline"><span>${sd} of ${n} topics ticked off</span><span>${pct(sd/n)}</span></div>
+          <div class="bar"><span style="width:${sd/n*100}%"></span></div>
+        </div>
+        <div class="row" style="font-size:14px;gap:16px">
+          <span><b class="num">${P.history.filter(h=>h.section===sec.key).length}</b> <span class="muted">quizzes</span></span>
+          <span><b class="num">${qs.filter(q=>P.q[q.id]).length}</b>/<span class="num">${qs.length}</span> <span class="muted">questions tried</span></span>
+          <span><b class="num">${sec.cards.filter(c=>P.cards[c.id]).length}</b>/<span class="num">${sec.cards.length}</span> <span class="muted">flashcards seen</span></span>
+        </div>
+        <div class="topic-dots">${sec.topics.map(t=>{const s=statFor(t.id);return `<a class="tdot" href="#${sec.hash}" data-act="opentopic" data-id="${t.id}" style="text-decoration:none;color:inherit"><span class="tick ${P.topicsDone[t.id]?"on":""}">${P.topicsDone[t.id]?"✓":""}</span><span class="t"><span class="num muted">${t.id}</span> ${esc(t.title)}</span>${s.n?`<span class="chip ${s.acc>=0.8?"good":s.acc>=0.6?"mid":"bad"}">${pct(s.acc)}</span>`:""}</a>`}).join("")}</div>
+      </div>`;
+}
+
 /* ============================================================
-   CASH PAGE
+   CHAPTER PAGE
+   ============================================================ */
+function chapterHTML(){
+  const ch=CUR_CH, ts=ch.sections.flatMap(x=>x.topics), sd=ts.filter(t=>P.topicsDone[t.id]).length, a=chapterStat(ch);
+  const quizzes=P.history.filter(h=>ch.sections.some(x=>x.key===h.section));
+  return `
+  <section class="pagehead">
+    <span class="eyebrow">Chapter ${ch.num}</span>
+    <h1>${esc(ch.title)}</h1>
+  </section>
+  <div class="stats">
+    <div class="stat"><div class="v">${sd}/${ts.length}</div><div class="k">Topics done</div></div>
+    <div class="stat"><div class="v">${ch.sections.length}</div><div class="k">Sections</div></div>
+    <div class="stat"><div class="v">${quizzes.length}</div><div class="k">Quizzes taken</div></div>
+    <div class="stat"><div class="v">${pct(a.acc)}</div><div class="k">Accuracy across ${a.n} answers</div></div>
+  </div>
+  <div class="stack section-gap">
+    <h2>Sections</h2>
+    ${ch.sections.map(secCardHTML).join("")}
+  </div>`;
+}
+
+/* ============================================================
+   SECTION PAGE
    ============================================================ */
 function sectionHTML(){
   const tabs=[["topics","Topics"],["flash","Flashcards"],["quiz","Quiz"],["numbers","Number practice"],["mine","My questions"]];
   let body = TAB==="topics"?topicsHTML():TAB==="flash"?flashHTML():TAB==="quiz"?quizHTML():TAB==="numbers"?numbersHTML():mineHTML();
   return `
   <section class="pagehead">
-    <span class="eyebrow">${CUR.eyebrow}</span>
+    <span class="eyebrow"><a class="crumb" href="#${CH[CUR.ch].hash}">Chapter ${CH[CUR.ch].num} · ${esc(CH[CUR.ch].title)}</a> · ${esc(CUR.eyebrow.replace(/^Chapter \d+ · /,""))}</span>
     <h1>${esc(CUR.title)}</h1>
+    <nav class="sibs" aria-label="Sections in this chapter">${CH[CUR.ch].sections.map(x=>`<a href="#${x.hash}" aria-current="${x===CUR?"page":"false"}">${esc(x.nav)}</a>`).join("")}</nav>
   </section>
   <div class="tabs" role="tablist">${tabs.map(([k,l])=>`<button role="tab" aria-selected="${TAB===k}" data-act="tab" data-tab="${k}">${l}</button>`).join("")}</div>
   ${body}`;
