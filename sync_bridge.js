@@ -40,6 +40,7 @@
         topicsDone: Object.assign({}, pb.topicsDone, pa.topicsDone),
         q: mergeCounts(pa.q, pb.q), cards: mergeCounts(pa.cards, pb.cards), nums: mergeCounts(pa.nums, pb.nums),
         history: Object.values(hist).sort((x, y) => x.at - y.at),
+        work: Object.assign({}, pb.work, pa.work),
       }),
       custom: Object.assign({}, b.custom, a.custom, { items: Object.values(items) }),
     };

@@ -122,6 +122,35 @@ table.tbl{border-collapse:collapse;width:100%;font-size:14px;min-width:420px}
 .xopts .right{color:var(--good);font-weight:600}
 .ch-sec.exam{background:transparent;border:1px dashed var(--line)}
 .sibs a.x{border-style:dashed}
+.workcmp{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.eqbox.mine{border-style:solid;border-color:var(--accent)}
+.tk-btn{position:fixed;right:16px;bottom:16px;z-index:20;border:0;border-radius:999px;padding:11px 18px;background:var(--accent);color:var(--accent-ink);font-weight:600;box-shadow:0 6px 20px rgba(0,0,0,.18);cursor:pointer}
+.tk{position:fixed;z-index:30;background:var(--bg);border-left:1px solid var(--line);display:flex;flex-direction:column;right:0;top:0;bottom:0;width:390px;box-shadow:-8px 0 24px rgba(0,0,0,.08)}
+.tk[hidden],.tk-btn[hidden]{display:none}
+@media (min-width:1180px){body.tk-open .wrap{margin-right:390px;margin-left:max(0px,calc((100vw - 390px - 1080px)/2))}}
+@media (max-width:700px){.tk{top:auto;left:0;width:auto;height:55vh;border-left:0;border-top:1px solid var(--line);border-radius:14px 14px 0 0;box-shadow:0 -8px 24px rgba(0,0,0,.15)}body.tk-open .wrap{padding-bottom:57vh}}
+.tk-head{display:flex;align-items:center;gap:8px;padding:10px 12px;border-bottom:1px solid var(--line)}
+.tk-tabs{display:flex;gap:4px;flex:1}
+.tk-tabs button{border:0;background:none;padding:7px 10px;border-radius:999px;color:var(--muted);font-weight:500;cursor:pointer}
+.tk-tabs button[aria-selected="true"]{background:var(--accent-soft);color:var(--accent)}
+.tk-x{border:0;background:none;color:var(--muted);font-size:16px;cursor:pointer;padding:6px}
+.tk-body{overflow:auto;padding:12px;display:grid;gap:12px;align-content:start;flex:1}
+.tk-group{display:grid;gap:8px}
+.tk-f{display:grid;gap:4px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
+.tk-f.hit{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent) inset}
+.tk-f code{font-family:var(--f-mono);font-size:13px;white-space:normal}
+.calc{display:grid;gap:8px}
+.calc-in{font-family:var(--f-mono);font-size:17px;padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink);width:100%}
+.calc-prev{min-height:22px;text-align:right;color:var(--accent);font-size:18px}
+.calc-keys{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+.calc-keys button{padding:12px 0;border-radius:8px;border:1px solid var(--line);background:var(--surface-2);color:var(--ink);font-family:var(--f-mono);font-size:16px;cursor:pointer}
+.calc-keys button.d{background:var(--surface)}
+.calc-keys button.eq{background:var(--accent);color:var(--accent-ink);border-color:transparent;font-weight:700}
+.tape{display:grid;gap:4px}
+.tape button{text-align:left;border:0;border-bottom:1px dashed var(--line);background:none;color:inherit;padding:6px 2px;cursor:pointer;font-family:var(--f-mono);font-size:13px;overflow-wrap:anywhere}
+.linkish{border:0;background:none;color:var(--accent);cursor:pointer;font-size:13px;padding:0}
+.work{font-family:var(--f-mono);font-size:14px;line-height:1.5;resize:vertical}
+.sketch{width:100%;height:260px;border:1px dashed var(--line);border-radius:8px;background:var(--surface);touch-action:none;cursor:crosshair}
 .crumb{color:inherit;text-decoration:none}.crumb:hover{text-decoration:underline}
 .sibs{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;margin-top:4px}
 .sibs::-webkit-scrollbar{display:none}
@@ -1781,7 +1810,7 @@ function route(){
   return s ? "section" : x ? "exam" : c ? "chapter" : "home";
 }
 function goSection(key){ const s=SEC[key]; if(location.hash!=="#"+s.hash){ location.hash="#"+s.hash; return true } CUR=s; return false }
-function render(){ const page=route(); view().innerHTML = page==="home" ? homeHTML() : page==="chapter" ? chapterHTML() : page==="exam" ? examHTML() : sectionHTML(); afterRender() }
+function render(){ const page=route(); route._last=page; view().innerHTML = page==="home" ? homeHTML() : page==="chapter" ? chapterHTML() : page==="exam" ? examHTML() : sectionHTML(); afterRender() }
 let PENDING_TOPIC=null;
 window.addEventListener("hashchange",()=>{OPEN_TOPIC=PENDING_TOPIC; PENDING_TOPIC=null; render(); window.scrollTo(0,0)});
 
@@ -1874,6 +1903,13 @@ function examStat(x){
   return {total:pool.length,tried,missed,r,w,n:r+w,acc:(r+w)?r/(r+w):null};
 }
 
+function workCompareHTML(q){
+  const mine=((P.work||{})[q.id]||{}).text;
+  const model=q.eq?`<div class="eqbox"><span class="eyebrow">${q.exam==="x1n"?"Model working / formula":"Equations / key rule"}</span><div>${esc(q.eq)}</div></div>`:"";
+  if(!mine) return model;
+  return `<div class="workcmp"><div class="eqbox mine"><span class="eyebrow">Your working</span><div>${esc(mine)}</div></div>${model}</div>`;
+}
+
 /* ============================================================
    EXAM-STYLE QUESTION PAGES
    ============================================================ */
@@ -1910,7 +1946,7 @@ function examHTML(){
           <span class="chip" style="justify-self:start">${esc(q.tlabel)}</span>
           <div class="xopts">${q.options.map((o,k)=>`<div class="${k===q.a?"right":""}"><b>${"ABCD"[k]})</b> ${esc(o)}${k===q.a?" ✓":""}</div>`).join("")}</div>
           <div class="feedback">${esc(q.why)}</div>
-          ${q.eq?`<div class="eqbox"><span class="eyebrow">Equations / key rule</span><div>${esc(q.eq)}</div></div>`:""}
+          ${workCompareHTML(q)}
         </div></details>`}).join("")}</div>
     </div>`;
   } else if(QZ && QZ.exam===x.key){
@@ -2084,7 +2120,7 @@ function quizHTML(){
       <span class="eyebrow">${esc(QZ.label)}</span><h2 class="num" style="font-size:44px">${QZ.score}/${QZ.items.length}</h2>
       <p class="muted">${QZ.score===QZ.items.length?"Full marks.":QZ.score/QZ.items.length>=0.7?"Pass-level score. Review the misses below.":"Below 70%. These topics now show in your weak spots."}</p>
       ${QZ.exam?`<div class="row" style="justify-content:center"><button class="btn primary" data-act="examstart">New set</button>${wrong.length?`<button class="btn" data-act="examretry">Retry the ${wrong.length} I missed</button>`:""}<button class="btn" data-act="quizhome">Back to setup</button></div>`:`<div class="row" style="justify-content:center"><button class="btn primary" data-act="startquiz" data-mode="${QZ.mode==="topic"?"topic":QZ.mode}" data-id="${QZ.mode==="topic"?QZ.items.length&&allQuestions().find(q=>q.id===QZ.items[0].id).topic:""}">Try again</button><button class="btn" data-act="quizhome">Back to quizzes</button></div>`}</div>
-      ${wrong.length?`<div class="panel stack"><h3>Review your misses</h3>${wrong.map(q=>`<div style="display:grid;gap:2px"><span class="num muted" style="font-size:12px">${q.tlabel?esc(q.tlabel):q.topic==="mine"?"My question":q.topic}</span><b>${esc(q.q)}</b><span>Answer: ${q.exam?"ABCD"[q.a]+") ":""}${esc(q.kind==="mcq"?q.options[q.a]:q.answer)}</span>${q.why?`<span class="muted" style="font-size:14px">${esc(q.why)}</span>`:""}</div>`).join("")}</div>`:""}
+      ${wrong.length?`<div class="panel stack"><h3>Review your misses</h3>${wrong.map(q=>`<div style="display:grid;gap:2px"><span class="num muted" style="font-size:12px">${q.tlabel?esc(q.tlabel):q.topic==="mine"?"My question":q.topic}</span><b>${esc(q.q)}</b><span>Answer: ${q.exam?"ABCD"[q.a]+") ":""}${esc(q.kind==="mcq"?q.options[q.a]:q.answer)}</span>${q.why?`<span class="muted" style="font-size:14px">${esc(q.why)}</span>`:""}${q.exam&&(P.work||{})[q.id]?workCompareHTML(q):""}</div>`).join("")}</div>`:""}
     </div>`;
   }
   const it=QZ.items[QZ.i], q=qById(it.id);
@@ -2096,7 +2132,7 @@ function quizHTML(){
     return `<div class="qbox">${head}<div class="opts">${it.order.map((oi,k)=>{
       let cls=""; if(answered){ if(oi===q.a) cls="right"; else if(oi===QZ.picked) cls="wrong" }
       return `<button class="opt ${cls}" data-act="pick" data-i="${oi}" ${answered?"disabled":""}><span class="l">${"ABCD"[k]||k+1}</span><span>${esc(q.options[oi])}</span></button>`}).join("")}</div>
-      ${answered?`<div class="feedback"><b style="color:${QZ.picked===q.a?"var(--good)":"var(--bad)"}">${QZ.picked===q.a?"Correct.":`Not quite. The answer is ${"ABCD"[it.order.indexOf(q.a)]}.`}</b> ${esc(q.why||"")}</div>${q.eq?`<div class="eqbox"><span class="eyebrow">Equations / key rule</span><div>${esc(q.eq)}</div></div>`:""}<div class="row"><button class="btn primary" data-act="nextq">${QZ.i+1<QZ.items.length?"Next question":"See score"}</button></div>`:""}
+      ${answered?`<div class="feedback"><b style="color:${QZ.picked===q.a?"var(--good)":"var(--bad)"}">${QZ.picked===q.a?"Correct.":`Not quite. The answer is ${"ABCD"[it.order.indexOf(q.a)]}.`}</b> ${esc(q.why||"")}</div>${workCompareHTML(q)}<div class="row"><button class="btn primary" data-act="nextq">${QZ.i+1<QZ.items.length?"Next question":"See score"}</button></div>`:""}
     </div>`;
   }
   return `<div class="qbox">${head}
@@ -2593,10 +2629,243 @@ function previewHTML(){
 function afterRender(){
   { const cur=document.querySelector('.sibs [aria-current="page"]'); if(cur){ const n=cur.parentElement; n.scrollLeft+=cur.getBoundingClientRect().left-n.getBoundingClientRect().left-n.clientWidth/2+cur.offsetWidth/2 } }
   calc();
+  tkSync();
   const sel=document.getElementById("np-type"); if(sel) sel.onchange=()=>{newProblem(sel.value);render()};
   const f=document.getElementById("np-form"); if(f) f.onsubmit=e=>{e.preventDefault();checkNP(document.getElementById("np-ans").value)};
   document.querySelectorAll(".calcs input, .calcs select").forEach(i=>i.oninput=calc);
 }
+/* ============================================================
+   NUMBERS TOOLKIT: formula sheet, calculator, working out
+   ============================================================ */
+const FORMULAS = [
+  // [section, topic, name, formula, note]
+  ["cash","1.2","Compound interest (terminal value)","T = C × (1 + I/N)^(N×Y)","C = capital, I = annual rate as a decimal, N = payments a year, Y = years"],
+  ["cash","1.2","Present value (capital needed)","C = T ÷ (1 + I/N)^(N×Y)",""],
+  ["cash","1.2","AER","AER = (1 + I/N)^N − 1","Paid once a year: AER = nominal rate. Only meaningful if interest is left in."],
+  ["cash","1.2","Real return (Fisher)","Real return = Nominal rate − Inflation",""],
+  ["cash","1.2","Requirement-linked effective rate","Effective rate = Total interest from both accounts ÷ Total cash held",""],
+  ["cash","1.2","Bank margin","Margin = Offer (lending) rate − Bid (deposit) rate",""],
+  ["cash","1.7","FSCS","Per licence: min(deposits, £85,000). Joint = £85,000 each. Temporary high balance up to £1m for 6 months",""],
+  ["cash","1.8","Foreign currency deposit in £","£ result = (£ × opening rate × (1 + foreign rate)) ÷ closing rate",""],
+  ["cash","1.8","Break-even exchange rate","Break-even = Opening rate × (1 + foreign rate) ÷ (1 + home rate)",""],
+  ["cash","1.10","Money market (discount) return","Return = (Face value − Price paid) ÷ Price paid",""],
+  ["cash","1.12","FX dealing","Buy base = offer (higher). Sell base = bid (lower). Have base: × rate. Have counter: ÷ rate","Spread = Offer − Bid. Round trip cost = Spread × Base amount"],
+
+  ["fi","2.1","Coupon payment","Payment = Nominal × Coupon ÷ Payments a year. Net = Gross × (1 − 0.20)",""],
+  ["fi","2.1","FRN coupon","Coupon = Reference rate (e.g. SONIA) + Quoted margin","1 basis point = 0.01%"],
+  ["fi","2.2","Government borrowing","PSNCR = CGNCR + LGNCR + PCNCR","Gilts fund the CGNCR only"],
+  ["fi","2.3","Conversion price","Conversion price = Market price per £100 nominal ÷ Shares received","Premium = (Conversion price − Share price) ÷ Share price"],
+  ["fi","2.3","Conversion value","Shares = (Nominal ÷ 100) × Ratio. Value = Shares × Share price",""],
+  ["fi","2.8","Running yield","Running yield = Gross coupon ÷ Market price × 100",""],
+  ["fi","2.8","Holding period return","HPR = (Redemption − Purchase price) ÷ Purchase price. Annualised = HPR ÷ Years",""],
+  ["fi","2.8","Approximate GRY","GRY ≈ Running yield + Annualised capital gain (or − loss)","Zero coupon bond: running yield = 0"],
+  ["fi","2.8","Net redemption yield","NRY = Running yield × (1 − tax rate) + Annualised capital gain","Only the income part is taxed"],
+  ["fi","2.8","Modified duration","MD = Macaulay duration ÷ (1 + GRY)","Zero coupon bond: Macaulay duration = years to maturity"],
+  ["fi","2.8","Price change from duration","% price change ≈ −MD × change in yield","New price = Old price × (1 + % change)"],
+  ["fi","2.10","Accrued interest","Accrued = Coupon payment × (Days since last payment ÷ Days in period)","Ex-div: interest is deducted for days from settlement to next payment"],
+  ["fi","2.10","Dirty price","Dirty = Clean + Accrued. Total paid = Dirty × (Nominal ÷ 100)",""],
+  ["fi","2.10","Dealing spread cost","Cost = (Offer − Bid) × (Nominal ÷ 100)",""],
+
+  ["eq","3.2","Share capital and shareholders' funds","Share capital = Par value × Shares issued. Shareholders' funds = Assets − Liabilities",""],
+  ["eq","3.2","Cumulative preference arrears","Payment = Annual pref dividend × (Years of arrears + Current year)",""],
+  ["eq","3.5","Bonus issue","New shares = Holding ÷ Y × X (X-for-Y). Ex-bonus price = (Y × Old price) ÷ (X + Y)","No new money; net worth unchanged"],
+  ["eq","3.5","Share split","New price = Old price ÷ Split factor. New nominal = Old nominal ÷ Split factor",""],
+  ["eq","3.5","TERP (rights issue)","TERP = (Old shares × Old price + New shares × Rights price) ÷ Total shares",""],
+  ["eq","3.5","Value of a nil-paid right","Nil-paid right = TERP − Rights price",""],
+  ["eq","3.6","Market capitalisation","Market cap = Shares in issue × Share price",""],
+  ["eq","3.6","Share premium","Share premium = (Issue price − Nominal value) × Shares issued",""],
+  ["eq","3.6","Gordon Growth Model","Price = Next dividend ÷ (Required return − Growth)","Next dividend = Current dividend × (1 + g). Required return = D1 ÷ Price + g"],
+  ["eq","3.6","Dealing costs","Commission = max(Rate × Trade value, Minimum). PTM levy £1.50 on trades over £10,000",""],
+  ["eq","3.7","Price-weighted index change","% change = Change in sum of prices ÷ Original sum of prices",""],
+  ["eq","3.8","Pay-out ratio and dividend cover","Pay-out = Dividends ÷ Net income. Cover = Net income ÷ Dividends",""],
+
+  ["pr","4.2","Rental yield","Rental yield = (Gross rent − Voids − Expenses) ÷ (Price + Purchase costs)",""],
+  ["pr","4.4","Residential SDLT","Each slice × its rate: 0% to £125k, 2% to £250k, 5% to £925k, 10% to £1.5m, 12% above","Additional home: + 5% × whole price. Non-resident: + 2% × price. Company over £500k: 15% × price"],
+  ["pr","4.4","Non-residential SDLT","Each slice × its rate: 0% to £150k, 2% to £250k, 5% above",""],
+  ["pr","4.4","Equity","Equity = Property value − Loan","Negative equity when loan > value"],
+  ["pr","4.7","Initial yield","Initial yield = Current annual rent ÷ Value including costs",""],
+  ["pr","4.7","Gross rent multiplier","GRM = Price ÷ Gross annual rent","Ignores expenses"],
+  ["pr","4.7","Cap rate","Cap rate = Net operating income ÷ Price. Value = NOI ÷ Cap rate","Cap rate up, value down"],
+  ["pr","4.8","REIT rules","Distribute 90% of qualifying profits. Interest cover: rent ≥ 1.25 × interest","Single property ≤ 40% of assets; property ≥ 75% of assets"],
+
+  ["oa","5.1","Auction break-even","Break-even hammer = Total cost ÷ (1 − Seller's fee %)","Total cost = Hammer × (1 + Buyer's premium %)"],
+  ["oa","5.3","Spread bet profit or loss","P/L = Points moved × Stake per point",""],
+  ["oa","5.5","Crypto gain (pooling)","Gain = Proceeds − (Total cost ÷ Total coins × Coins sold)",""],
+  ["oa","5.7","Hedge fund 2 and 20","Management = 2% × Amount invested. Performance = 20% × Gain (0 if no gain)","Net return = (Gain − Fees) ÷ Amount invested"],
+  ["oa","5.8","Private company valuation","Value = Comparable P/E × Normalised profit. Asset value = Assets − Liabilities",""],
+  ["oa","5.9","60/40 portfolio return","Return = Equity weight × Equity return + Bond weight × Bond return",""]
+].map(([sec,topic,name,f,note])=>({sec,topic,name,f,note}));
+
+/* --- calculator: a small safe expression evaluator --- */
+function calcEval(src, ans){
+  const s=String(src).replace(/×/g,"*").replace(/÷/g,"/").replace(/−/g,"-").replace(/,/g,"").replace(/\s+/g,"").replace(/√/g,"r").replace(/ans/gi,"a");
+  let i=0;
+  const peek=()=>s[i], eat=c=>{ if(s[i]===c){ i++; return true } return false };
+  function expr(){ let v=term(); for(;;){ if(eat("+")) v+=term(); else if(eat("-")) v-=term(); else return v } }
+  function term(){ let v=unary(); for(;;){ if(eat("*")) v*=unary(); else if(eat("/")) v/=unary(); else if(/[\d.(ra]/.test(peek()||"")) v*=unary(); else return v } }
+  function unary(){ if(eat("-")) return -unary(); if(eat("+")) return unary(); return power() }
+  function power(){ let b=postfix(); if(eat("^")) return Math.pow(b, unary()); return b }
+  function postfix(){ let v=atom(); while(eat("%")) v/=100; return v }
+  function atom(){
+    if(eat("(")){ const v=expr(); eat(")"); return v }
+    if(eat("r")) return Math.sqrt(postfix());
+    if(eat("a")) return ans||0;
+    const m=s.slice(i).match(/^\d*\.?\d+(e[-+]?\d+)?/i);
+    if(!m) throw new Error("bad");
+    i+=m[0].length; return parseFloat(m[0]);
+  }
+  if(!s) throw new Error("empty");
+  const v=expr(); if(i<s.length) throw new Error("bad"); if(!isFinite(v)) throw new Error("bad");
+  return v;
+}
+const fmtCalc = v => Math.abs(v)>=1e15||(Math.abs(v)<1e-9&&v!==0) ? v.toExponential(8) : String(+v.toPrecision(12));
+
+/* --- toolkit state and context --- */
+const TK = { open:false, tab:"formulas", search:"", expr:"", ans:0, tape:[], ctx:null, sketches:{} };
+try{ Object.assign(TK, {tab:lsGet("irt.tk.tab")||"formulas", tape:lsGet("irt.tk.tape")||[]}) }catch(e){}
+function tkContext(){
+  // Which question is on screen, if any, on a numbers page.
+  const page=route._last;
+  if(page==="exam" && CUR_X.calc && XTAB==="practice"){
+    const it=QZ&&QZ.exam===CUR_X.key&&QZ.i<QZ.items.length?QZ.items[QZ.i]:null; const q=it&&qById(it.id);
+    return {show:true, key:q?q.id:null, sec:q?q.sec:(XSET.sec!=="all"?XSET.sec:null), topic:q?q.topic:null, label:q?q.id:null, hint:q?q.tlabel:""};
+  }
+  if(page==="section" && TAB==="numbers" && NP){
+    return {show:true, key:"np:"+NP.type, sec:CUR.key, topic:NUM_TYPES[NP.type].topic, label:NUM_TYPES[NP.type].label, hint:NUM_TYPES[NP.type].label, scratch:true};
+  }
+  return {show:false};
+}
+function tkSync(){
+  const c=tkContext();
+  if(c.key!==(TK.ctx||{}).key){ if(TK.ctx&&TK.ctx.key) delete TK.sketches[TK.ctx.key]; TK.scratch="" }
+  TK.ctx=c;
+  const btn=document.getElementById("tk-btn"), panel=document.getElementById("tk");
+  btn.hidden=!c.show || TK.open; panel.hidden=!c.show || !TK.open;
+  document.body.classList.toggle("tk-open", c.show && TK.open);
+  if(c.show && TK.open) tkRender();
+}
+function tkFormulasHTML(){
+  const c=TK.ctx||{}, q=TK.search.trim().toLowerCase();
+  let list=FORMULAS.filter(f=>!q || (f.name+" "+f.f+" "+f.note+" "+f.topic).toLowerCase().includes(q));
+  const order=SECTIONS.map(s=>s.key);
+  const secs=order.filter(k=>list.some(f=>f.sec===k));
+  if(c.sec && !q){ secs.sort((a,b)=>(b===c.sec)-(a===c.sec)) }
+  // Highlight the formulas for this question's topic; the closest name match gets scrolled to.
+  const words=String(c.hint||"").toLowerCase().replace(/[^a-z0-9 ]/g," ").split(/\s+/).filter(w=>w.length>2&&!/^\d/.test(w));
+  const score=f=>words.filter(w=>(f.name+" "+f.f).toLowerCase().includes(w)).length;
+  const hits=FORMULAS.filter(f=>c.topic&&f.topic===c.topic);
+  const best=hits.length?hits.reduce((a,b)=>score(b)>score(a)?b:a):null;
+  return `<input class="plain" id="tk-search" placeholder="Search formulas, e.g. GRY or SDLT" value="${esc(TK.search)}" autocomplete="off">
+    ${secs.length?secs.map(k=>`<div class="tk-group"><span class="eyebrow">${esc(SEC[k].nav)}</span>${list.filter(f=>f.sec===k).map(f=>`
+      <div class="tk-f ${c.topic&&f.topic===c.topic?"hit":""} ${f===best?"best":""}"><div class="row" style="justify-content:space-between;gap:6px"><b>${esc(f.name)}</b><span class="num muted" style="font-size:11px">${f.topic}</span></div>
+      <code>${esc(f.f)}</code>${f.note?`<span class="muted" style="font-size:12.5px">${esc(f.note)}</span>`:""}</div>`).join("")}</div>`).join("")
+    :`<p class="muted">No formula matches “${esc(TK.search)}”.</p>`}`;
+}
+function tkCalcHTML(){
+  const keys=[["(","("],[")",")"],["^","xʸ"],["√","√"],["C","C"],
+              ["7","7"],["8","8"],["9","9"],["÷","÷"],["⌫","⌫"],
+              ["4","4"],["5","5"],["6","6"],["×","×"],["%","%"],
+              ["1","1"],["2","2"],["3","3"],["−","−"],["ans","Ans"],
+              ["0","0"],[".","."],["00","00"],["+","+"],["=","="]];
+  let prev=""; try{ prev=TK.expr.trim()?fmtCalc(calcEval(TK.expr,TK.ans)):"" }catch(e){ prev="" }
+  return `<div class="calc">
+    <input class="calc-in" id="tk-expr" value="${esc(TK.expr)}" placeholder="e.g. 40000 × (1 + 0.044/12)^36" autocomplete="off" inputmode="decimal" spellcheck="false">
+    <div class="calc-prev num" id="tk-prev">${prev?"= "+esc(prev):"&nbsp;"}</div>
+    <div class="calc-keys">${keys.map(([k,l])=>`<button data-tk="key" data-k="${esc(k)}" class="${k==="="?"eq":/^[0-9.]|00/.test(k)?"d":""}">${l}</button>`).join("")}</div>
+    ${TK.tape.length?`<div class="tk-group"><div class="row" style="justify-content:space-between"><span class="eyebrow">Earlier results · tap to reuse</span><button class="linkish" data-tk="cleartape">Clear</button></div>
+      <div class="tape">${TK.tape.slice().reverse().map(t=>`<button data-tk="reuse" data-v="${esc(t.v)}"><span class="muted">${esc(t.e)} =</span> <b class="num">${esc(t.v)}</b></button>`).join("")}</div></div>`:""}
+    <p class="muted" style="font-size:12px">Type with your keyboard too: * and / work, ^ for powers, Enter to work it out.</p>
+  </div>`;
+}
+function tkWorkHTML(){
+  const c=TK.ctx||{};
+  if(!c.key) return `<p class="muted">Start a question and your working pad for it appears here.</p>`;
+  const w=c.scratch?(TK.scratch||""):((P.work||{})[c.key]||{}).text||"";
+  return `<div class="stack" style="gap:8px">
+    <div class="row" style="justify-content:space-between"><span class="eyebrow">Working for ${esc(c.label)}</span><span class="muted" style="font-size:12px">${c.scratch?"Clears on the next problem":"Saved with this question"}</span></div>
+    <textarea id="tk-work" class="work" rows="9" placeholder="Write your steps, e.g.&#10;RY = 4.25 ÷ 98.55 = 4.31%&#10;HPR = (100 − 98.55) ÷ 98.55 = 1.47%">${esc(w)}</textarea>
+    <div class="row" style="justify-content:space-between"><span class="eyebrow">Sketch pad</span><button class="linkish" data-tk="clearsketch">Clear sketch</button></div>
+    <canvas id="tk-sketch" class="sketch" height="260"></canvas>
+    <span class="muted" style="font-size:12px">Draw with your mouse, finger or pen. The sketch stays on this device until you move to another question.</span>
+  </div>`;
+}
+function tkRender(){
+  const el=document.getElementById("tk-body"); const active=document.activeElement&&document.activeElement.id;
+  const caret=active&&document.activeElement.selectionStart;
+  document.querySelectorAll("#tk .tk-tabs button").forEach(b=>b.setAttribute("aria-selected",b.dataset.tab===TK.tab));
+  el.innerHTML = TK.tab==="formulas"?tkFormulasHTML():TK.tab==="calc"?tkCalcHTML():tkWorkHTML();
+  if(active){ const a=document.getElementById(active); if(a&&el.contains(a)){ a.focus(); try{a.setSelectionRange(caret,caret)}catch(e){} } }
+  if(TK.tab==="formulas"){ const hit=el.querySelector(".tk-f.best")||el.querySelector(".tk-f.hit"); if(hit&&!TK.search) hit.scrollIntoView({block:"nearest"}) }
+  if(TK.tab==="work") tkSketchInit();
+}
+function tkSketchInit(){
+  const cv=document.getElementById("tk-sketch"); if(!cv) return;
+  const key=(TK.ctx||{}).key; const ratio=window.devicePixelRatio||1;
+  cv.width=cv.clientWidth*ratio; cv.height=260*ratio;
+  const g=cv.getContext("2d"); g.scale(ratio,ratio); g.lineCap="round"; g.lineJoin="round"; g.lineWidth=2;
+  g.strokeStyle=getComputedStyle(document.body).getPropertyValue("--ink")||"#111";
+  const strokes=TK.sketches[key]||(TK.sketches[key]=[]);
+  const draw=st=>{ g.beginPath(); st.forEach((p,i)=>i?g.lineTo(p[0],p[1]):g.moveTo(p[0],p[1])); g.stroke() };
+  strokes.forEach(draw);
+  let cur=null;
+  const pt=e=>{const r=cv.getBoundingClientRect(); return [e.clientX-r.left, e.clientY-r.top]};
+  cv.onpointerdown=e=>{ cv.setPointerCapture(e.pointerId); cur=[pt(e)]; strokes.push(cur) };
+  cv.onpointermove=e=>{ if(!cur) return; cur.push(pt(e)); g.beginPath(); const a=cur[cur.length-2], b=cur[cur.length-1]; g.moveTo(a[0],a[1]); g.lineTo(b[0],b[1]); g.stroke() };
+  cv.onpointerup=cv.onpointercancel=()=>{ cur=null };
+}
+function tkCalcRun(){
+  try{ const v=calcEval(TK.expr,TK.ans); const out=fmtCalc(v);
+    TK.tape.push({e:TK.expr,v:out}); if(TK.tape.length>12) TK.tape.shift(); lsSet("irt.tk.tape",TK.tape);
+    TK.ans=v; TK.expr=out; }
+  catch(e){ toast("Check the sum: something doesn't add up") }
+  tkRender(); const i=document.getElementById("tk-expr"); if(i){ i.focus(); i.setSelectionRange(i.value.length,i.value.length) }
+}
+function tkKey(k){
+  const i=document.getElementById("tk-expr"); let a=i?i.selectionStart:TK.expr.length, b=i?i.selectionEnd:TK.expr.length;
+  if(k==="="){ tkCalcRun(); return }
+  if(k==="C"){ TK.expr="" }
+  else if(k==="⌫"){ if(a===b&&a>0) a--; TK.expr=TK.expr.slice(0,a)+TK.expr.slice(b); b=a }
+  else { const ins=k==="ans"?"Ans":k==="√"?"√(":k; TK.expr=TK.expr.slice(0,a)+ins+TK.expr.slice(b); a=b=a+ins.length }
+  tkRender(); const j=document.getElementById("tk-expr"); if(j){ j.focus(); j.setSelectionRange(a,a) }
+}
+function tkSaveWork(text){
+  const c=TK.ctx||{}; if(!c.key) return;
+  if(c.scratch){ TK.scratch=text; return }
+  P.work=P.work||{};
+  if(text.trim()) P.work[c.key]={text,at:Date.now()}; else delete P.work[c.key];
+  clearTimeout(tkSaveWork._t); tkSaveWork._t=setTimeout(()=>persist("progress"),600);
+}
+function tkInit(){
+  const host=document.createElement("div");
+  host.innerHTML=`<button id="tk-btn" class="tk-btn" hidden data-tk="open">🧮 Toolkit</button>
+  <aside id="tk" class="tk" hidden aria-label="Toolkit">
+    <div class="tk-head"><div class="tk-tabs" role="tablist">${[["formulas","Formulas"],["calc","Calculator"],["work","Working"]].map(([k,l])=>`<button role="tab" data-tk="tab" data-tab="${k}">${l}</button>`).join("")}</div>
+      <button class="tk-x" data-tk="close" aria-label="Close toolkit">✕</button></div>
+    <div class="tk-body" id="tk-body"></div>
+  </aside>`;
+  document.body.append(...host.children);
+  document.addEventListener("click",e=>{
+    const b=e.target.closest("[data-tk]"); if(!b) return;
+    const a=b.dataset.tk;
+    if(a==="open"){ TK.open=true; tkSync();
+      // On a phone the toolkit covers the lower half, so bring the question to the top.
+      const q=document.querySelector(".qtext"); if(q&&innerWidth<=700){ const top=document.querySelector(".top"); window.scrollTo(0, q.getBoundingClientRect().top+scrollY-(top?top.offsetHeight:0)-8) } }
+    else if(a==="close"){ TK.open=false; tkSync() }
+    else if(a==="tab"){ TK.tab=b.dataset.tab; lsSet("irt.tk.tab",TK.tab); tkRender() }
+    else if(a==="key") tkKey(b.dataset.k);
+    else if(a==="reuse"){ TK.expr+=b.dataset.v; tkRender() }
+    else if(a==="cleartape"){ TK.tape=[]; lsSet("irt.tk.tape",[]); tkRender() }
+    else if(a==="clearsketch"){ TK.sketches[(TK.ctx||{}).key]=[]; tkRender() }
+  });
+  document.addEventListener("input",e=>{
+    if(e.target.id==="tk-search"){ TK.search=e.target.value; tkRender() }
+    else if(e.target.id==="tk-expr"){ TK.expr=e.target.value; let p=""; try{ p=TK.expr.trim()?"= "+fmtCalc(calcEval(TK.expr,TK.ans)):"" }catch(x){} document.getElementById("tk-prev").innerHTML=p?esc(p):"&nbsp;" }
+    else if(e.target.id==="tk-work") tkSaveWork(e.target.value);
+  });
+  document.addEventListener("keydown",e=>{ if(e.target.id==="tk-expr"&&e.key==="Enter"){ e.preventDefault(); tkCalcRun() } }, true);
+}
+tkInit();
+
 document.addEventListener("keydown",e=>{ if((e.key==="Enter"||e.key===" ")&&e.target.closest&&e.target.closest(".flash")){e.preventDefault();FC.flipped=!FC.flipped;render()} });
 document.addEventListener("click",e=>{
   const el=e.target.closest("[data-act]"); if(!el) return;
