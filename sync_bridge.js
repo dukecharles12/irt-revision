@@ -129,6 +129,13 @@
   post("streamlit:componentReady", { apiVersion: 1 });
   post("streamlit:setFrameHeight", { height: Math.max(window.innerHeight, 900) });
 
+  // Streamlit draws component frames with scrolling="no", which stops the page scrolling.
+  // Scroll inside the page instead: the body becomes the scroll area.
+  const st = document.createElement("style");
+  st.textContent = "html{height:100%;overflow:hidden}body{height:100%;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;overscroll-behavior:contain}";
+  document.head.appendChild(st);
+  window.IRT_SCROLLER = document.body;
+
   // Links like "#property" must stay inside this frame.
   document.addEventListener("click", e => {
     const a = e.target.closest && e.target.closest('a[href^="#"]');
