@@ -132,7 +132,9 @@
   // Streamlit draws component frames with scrolling="no", which stops the page scrolling.
   // Scroll inside the page instead: the body becomes the scroll area.
   const st = document.createElement("style");
-  st.textContent = "html{height:100%;overflow:hidden}body{height:100%;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;overscroll-behavior:contain}";
+  st.textContent = "html{height:100%;overflow:hidden}body{height:100%;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;overscroll-behavior:contain}"
+    // Streamlit's "Manage app" button sits in the bottom-right corner, so keep our buttons above it.
+    + ".tk-btn{bottom:72px!important}.tk-body{padding-bottom:72px!important}.toast{bottom:76px!important}";
   document.head.appendChild(st);
   window.IRT_SCROLLER = document.body;
 
