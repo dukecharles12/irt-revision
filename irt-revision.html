@@ -2524,6 +2524,642 @@ const IT_NUM = {
   it_apt:{label:"Multi-factor (APT) return",topic:"C3-3.4"}
 };
 
+/* ============================================================
+   CONTENT: Chapter 4 (Taxation of Investors and Investments)
+   Topic ids carry a "C4-" prefix.
+   ============================================================ */
+
+/* Chapter 4, Section 1: Income Tax and NICs (2025-26 figures from Duke's notes) */
+const INC_TOPICS = [
+{id:"C4-1", title:"Personal Income Tax", blurb:"Allowances, bands, the order income is taxed, marriage allowance and the four tax systems.",
+html:`<p>Chapter 4 is worth about <b>16 of the 80 exam questions</b>, and most marks come from knowing the numbers. All figures are <b>2025-26</b>. Tax bands apply <b>after</b> the personal allowance is deducted. Scotland can differ.</p>
+<h3>Allowances and rates</h3>
+<div class="tw"><table class="tbl"><tr><th>Item</th><th>Figure</th></tr>
+<tr><td>Personal allowance (PA)</td><td><b>£12,570</b>, lost £1 for every £2 over £100,000 (gone at £125,140)</td></tr>
+<tr><td>Basic / higher / additional rate</td><td>20% to £37,700 / 40% to £125,140 / 45% above</td></tr>
+<tr><td>Starting rate for savings</td><td><b>£5,000</b> at 0%, cut £1 for every £1 of other income over the PA (gone at £17,570)</td></tr>
+<tr><td>Personal savings allowance (PSA)</td><td><b>£1,000</b> basic / <b>£500</b> higher / <b>£0</b> additional</td></tr>
+<tr><td>Dividend allowance (DA)</td><td><b>£500</b>, all taxpayers</td></tr>
+<tr><td>Dividend rates</td><td><b>8.75% / 33.75% / 39.35%</b></td></tr>
+<tr><td>Blind person's allowance</td><td>£3,130 (added to the PA)</td></tr>
+<tr><td>Marriage allowance</td><td><b>£1,260</b> transfer, saves <b>£252</b>, backdate 4 years</td></tr></table></div>
+<p><b>Nil rate bands</b> (income you pay no tax on): personal allowance, PSA, starting rate for savings, dividend allowance.</p>
+<ul><li><b>Personal allowance:</b> everyone gets £12,570 if they meet the residency rules, whatever their age. Unused PA can absorb investment income.</li>
+<li><b>PSA:</b> £1,000 basic, £500 if any income is in the higher band, nil for additional rate. ISA and pension interest does not count.</li>
+<li><b>Starting rate for savings:</b> up to £5,000 of interest at 0%, reduced £1 for every £1 of other income above £12,570.</li>
+<li><b>Dividend allowance:</b> first £500 tax-free for everyone, then 8.75% / 33.75% / 39.35%.</li></ul>
+<div class="worked"><b class="lab">Worked example: starting rate</b>Salary £14,570, interest £500. Salary is £2,000 over the PA, so the starting rate band = £5,000 − £2,000 = £3,000. The interest is <b>tax-free</b>.</div>
+<h3>Order of taxing income</h3>
+<p><span class="formula">Non-savings first → then savings → then dividends on top</span></p>
+<div class="worked"><b class="lab">Worked example (book)</b>Salary £51,350, interest £500, dividends £250. Taxable = £51,350 − £12,570 = £38,780. £37,700 × 20% = £7,540. £1,080 × 40% = £432. Interest covered by the £500 PSA (higher rate). Dividends covered by the DA. <b>Total tax £7,972.</b></div>
+<div class="worked"><b class="lab">Worked example: monthly</b>£5,000 a month. PA £1,047.50 (£12,570 ÷ 12). Taxable £3,952.50. £3,141.67 × 20% = £628.33. £810.83 × 40% = £324.33. <b>Tax £952.66, net £4,047.34.</b> Trick: divide the annual PA and bands by 12.</div>
+<h3>Marriage allowance</h3>
+<p>Transfer <b>£1,260</b> (10% of the PA, rounded up to the nearest £10). Conditions:</p>
+<ul><li>Married or civil partners</li><li>Transferor earns under the PA (a non-taxpayer)</li><li>Recipient is a basic rate taxpayer (£12,571 to £50,000)</li><li>Both born on or after 6 April 1935</li></ul>
+<p>Saves <b>£252</b> a year (20% of £1,260). Can be backdated 4 years, so up to £1,008 back. Continues automatically until cancelled.</p>
+<div class="worked"><b class="lab">Worked example</b>Jemima earns £30,000. Before: £17,430 × 20% = £3,486. After Caroline transfers £1,260: £16,170 × 20% = £3,234. <b>Saving £252.</b></div>
+<h3>Four tax systems worldwide</h3>
+<div class="tw"><table class="tbl"><tr><th>System</th><th>Who is taxed</th><th>Examples</th></tr>
+<tr><td>Zero</td><td>Nobody</td><td>UAE, Bermuda, Cayman</td></tr>
+<tr><td>Residential</td><td>Residents, on worldwide income</td><td>UK</td></tr>
+<tr><td>Citizenship</td><td>Citizens wherever they live</td><td><b>US and Eritrea only</b></td></tr>
+<tr><td>Territorial</td><td>Only income earned in the country</td><td>Hong Kong, Singapore</td></tr></table></div>`,
+traps:["Bands apply to income <b>after</b> the personal allowance.","PA tapers £1 for every £2 over £100,000. At £110,000 the PA is <b>£7,570</b>; it is gone at £125,140.","PSA is £500 for a <b>higher</b> rate taxpayer and <b>nil</b> for additional rate. The £500 dividend allowance is the same for everyone.","Order: non-savings, then savings, then <b>dividends on top</b>.","Marriage allowance: recipient must be a <b>basic</b> rate taxpayer; saving is £252, not £1,260.","Citizenship-based tax = <b>only the US and Eritrea</b>. Territorial = foreign income tax-free whether remitted or not."]},
+
+{id:"C4-2", title:"Trusts and Charities", blurb:"The four trust types, how trustees and beneficiaries are taxed, parental settlements, vulnerable trusts and charities.",
+html:`<p>The <b>settlor</b> puts assets in. <b>Trustees</b> hold them. <b>Beneficiaries</b> benefit. A trust is <b>not a separate legal entity</b>, so trustees are usually assessed and pay tax from the trust assets.</p>
+<h3>Four main trust types</h3>
+<div class="tw"><table class="tbl"><tr><th>Type</th><th>Key feature</th><th>Other names</th></tr>
+<tr><td>Interest in possession (IIP)</td><td>Life tenant gets income now. Remainderman gets capital on their death</td><td>Life interest, fixed interest trust</td></tr>
+<tr><td>Discretionary</td><td>Trustees decide who gets income and capital</td><td>Accumulation trust</td></tr>
+<tr><td>Accumulation &amp; maintenance (A&amp;M)</td><td>Beneficiary entitled by an age <b>not over 25</b></td><td></td></tr>
+<tr><td>Bare</td><td>Beneficiary has absolute right to income and capital</td><td>Absolute trust</td></tr></table></div>
+<h3>Income tax by trust type</h3>
+<div class="tw"><table class="tbl"><tr><th>Trust</th><th>Trustees pay</th><th>Beneficiary</th></tr>
+<tr><td>IIP</td><td>Basic rate: <b>20%</b> income, <b>8.75%</b> dividends. No PA, PSA or DA</td><td>Taxed at own marginal rate. Basic rate: nothing more. Higher/additional: pay extra. Non-taxpayer: reclaim. Can use own allowances</td></tr>
+<tr><td>Discretionary / A&amp;M</td><td>Under £500: nil. Over £500: the <b>whole amount</b> at <b>45%</b> (39.35% dividends)</td><td>Taxed on distributions at own rate. Non/basic rate can reclaim via the <b>tax pool</b></td></tr>
+<tr><td>Bare</td><td>Trust ignored</td><td>Taxed at own rates with own allowances</td></tr></table></div>
+<div class="worked"><b class="lab">Worked example</b>A discretionary trust earns £600 of interest. That is over £500, so the whole amount is taxed: £600 × 45% = <b>£270</b>.</div>
+<ul><li><b>IIP mandated income:</b> paid direct to the beneficiary. Trustees don't report it (lower admin) but can't deduct expenses.</li>
+<li><b>Parental settlements:</b> bare trust from a parent to their own minor, unmarried child. Income is taxed on the <b>parent</b> (distributed or not) unless under <b>£100 a year</b> (£200 if both parents). Only applies to parents; grandparents are fine.</li></ul>
+<h3>Trusts for the vulnerable</h3>
+<p>The beneficiary is:</p>
+<ul><li>Disabled (eligible for a disability benefit, even if not claimed)</li><li>A relevant minor: <b>under 18 with at least one parent dead</b></li><li>Unable to manage their affairs under the Mental Health Act 1983</li></ul>
+<p>Trustees claim the difference between trust tax and what the beneficiary would have paid personally.</p>
+<h3>Charities</h3>
+<ul><li>Income exempt if used for charitable purposes. Gift Aid relief on UK taxpayer donations. Exempt from SDLT.</li>
+<li><b>Cannot reclaim tax on dividends.</b></li>
+<li>Must be a UK charity (EU/EEA charities no longer qualify). Trading may be taxed.</li>
+<li>VAT registration over £85,000 (to 31 March 2026).</li></ul>`,
+traps:["A trust is <b>not</b> a separate legal entity.","Discretionary trust over £500: the <b>whole</b> income is taxed at 45% (39.35% dividends), not just the excess.","IIP trustees pay <b>basic rate</b> (20% / 8.75%) with no PA, PSA or DA.","Parental settlement rule (£100 a year per parent) applies to <b>parents only</b>; grandparents' gifts are fine.","Relevant minor = <b>under 18 with at least one parent dead</b>.","Charities <b>cannot reclaim</b> tax on dividends."]},
+
+{id:"C4-3", title:"Taxation of Investment Income", blurb:"Savings income, rental income, fund distributions and the 60% rule, investment trusts and REITs.",
+html:`<p><b>Savings income</b> = bank and building society interest, NS&amp;I and credit union interest, <b>interest</b> distributions from funds, gilt and corporate bond income, and most purchased life annuities.</p>
+<h3>Rental income (residential)</h3>
+<ul><li>Taxed as business income at normal rates. All properties = <b>one business</b>, so losses on one offset profits on another.</li>
+<li><b>£1,000 property allowance</b> for individuals (separate from the PSA).</li>
+<li>Allowable: agent fees, insurance, repairs and maintenance (<b>not improvements</b>), service charges.</li>
+<li>Mortgage interest relief restricted to <b>20%</b>.</li>
+<li><b>Rent-a-room £7,500</b> tax-free; the landlord must live there at the same time (shared occupancy test).</li>
+<li>Losses carried forward against the <b>same rental business</b>.</li></ul>
+<p>Commercial property: same treatment plus <b>capital allowances</b>. Agricultural: special rules for maintenance, keep separate records.</p>
+<h3>OEICs, unit trusts, ETFs: the 60% rule</h3>
+<p><b>Distributions from collectives are always taxable</b>, paid out or reinvested.</p>
+<div class="tw"><table class="tbl"><tr><th>Fund holds</th><th>Pays</th><th>Taxed as</th></tr>
+<tr><td><b>60% or more</b> in fixed interest</td><td>Interest (gross)</td><td>Savings income, PSA applies</td></tr>
+<tr><td>Under 60%</td><td>Dividends (gross)</td><td>Dividend income, DA applies</td></tr></table></div>
+<ul><li><b>Equalisation:</b> the first distribution after buying includes income you paid for in the price. It is a return of capital: <b>not income-taxed</b>, deducted from your CGT base cost.</li>
+<li><b>Accumulation units:</b> income rolled up is <b>still taxed</b> as if received (unless in an ISA or pension).</li></ul>
+<h3>Investment trusts</h3>
+<ul><li>UK dividends received = <b>franked income</b>, no further tax.</li>
+<li>Overseas dividends: corporation tax on the grossed-up amount, DTA relief possible.</li>
+<li>Approved investment trusts are exempt from CT on income from their investments.</li>
+<li>Investor taxed like any share. Can elect to pay <b>interest distributions</b> if invested in interest-bearing assets (2009 Regulations).</li></ul>
+<h3>REITs</h3>
+<p>Must pay out <b>at least 90%</b> of taxable income. REITs pay no corporation tax.</p>
+<div class="tw"><table class="tbl"><tr><th>Element</th><th>Taxed as</th><th>Detail</th></tr>
+<tr><td>PID (property income distribution)</td><td><b>Rental income</b>, not dividend</td><td><b>20% withheld at source</b>. Basic: nothing more. Higher: extra <b>20%</b>. Additional: extra <b>25%</b>. Non-taxpayer reclaims. Charities, UK companies and pensions can be paid gross</td></tr>
+<tr><td>Non-PID</td><td>Ordinary dividend</td><td>DA applies here only</td></tr></table></div>`,
+traps:["Fund with <b>60% or more</b> in fixed interest pays interest (savings income); under 60% pays dividends.","Accumulation units: rolled-up income is <b>still taxed</b>.","Equalisation is a return of capital: not income-taxed, deducted from the CGT base cost.","Repairs are allowable, <b>improvements are not</b>. Mortgage interest relief is limited to 20%.","Rent-a-room is <b>£7,500</b>; the property allowance is <b>£1,000</b>.","PIDs are taxed at <b>20/40/45</b> as rental income, not dividend rates, and the DA does <b>not</b> apply. Higher rate pays an extra 20% after the 20% withheld."]},
+
+{id:"C4-4", title:"National Insurance Contributions", blurb:"NIC classes, Class 1 thresholds, pension ages and voluntary contributions.",
+html:`<p>NICs build entitlement to benefits like the state pension. Paid from <b>age 16</b>, they stop at <b>state pension age</b>.</p>
+<p><b>Pension ages:</b> SPA is <b>66</b>, rising to <b>67</b> (2026-28) and <b>68</b> (2044-46). NMPA (earliest private pension access) is <b>55</b>, rising to <b>57 in 2028</b>, then SPA minus 10.</p>
+<h3>The classes</h3>
+<div class="tw"><table class="tbl"><tr><th>Class</th><th>Who</th><th>Rate</th><th>Counts for benefits?</th></tr>
+<tr><td>1 primary</td><td>Employees</td><td><b>8%</b> PT to UEL, <b>2%</b> above</td><td>Yes</td></tr>
+<tr><td>1 secondary</td><td>Employers</td><td><b>15%</b> above ST (£175 pw)</td><td>n/a</td></tr>
+<tr><td>1A</td><td>Employers on benefits in kind</td><td><b>15%</b></td><td>n/a</td></tr>
+<tr><td>2</td><td>Self-employed, <b>voluntary</b> since 6 April 2024</td><td>£3.45 pw</td><td>Yes (basic state pension, maternity, bereavement). Not additional state pension, SSP or JSA</td></tr>
+<tr><td>3</td><td>Voluntary gap fillers</td><td>£17.75 pw</td><td>Some benefits</td></tr>
+<tr><td>4</td><td>Self-employed, on profits</td><td><b>6%</b> £12,570 to £50,270, <b>2%</b> above</td><td><b>No</b></td></tr></table></div>
+<h3>Class 1 thresholds</h3>
+<div class="tw"><table class="tbl"><tr><th>Earnings</th><th>What happens</th></tr>
+<tr><td>Below LEL (£125 pw)</td><td>No NICs, <b>no credit</b></td></tr>
+<tr><td>LEL to PT (£242 pw)</td><td>No NICs, but <b>credited</b></td></tr>
+<tr><td>PT to UEL (£967 pw)</td><td>8%</td></tr>
+<tr><td>Above UEL</td><td>2%</td></tr></table></div>
+<div class="worked"><b class="lab">Worked example</b>Employee earning £1,000 a week. (967 − 242) × 8% = £58.00, plus (1,000 − 967) × 2% = £0.66. <b>Total £58.66 a week.</b></div>
+<p>Married women's reduced rate: <b>1.85%</b> between PT and UEL.</p>
+<p><b>Voluntary NICs</b> suit the unemployed not on benefits, low earners, the self-employed with small profits, married women cancelling the reduced rate election, and people abroad. <b>Class 2 is usually better than Class 3</b>: cheaper and wider benefits.</p>`,
+traps:["Class 4 gives <b>no</b> benefit entitlement.","Class 2 became <b>voluntary</b> from April 2024.","Between LEL and PT: no NICs but you <b>are credited</b>. Below LEL: no credit.","Employee 8% then 2% above the UEL; employer <b>15%</b> above the ST of £175 pw.","Textbook inconsistency: the table says LEL <b>£125 pw</b>, a footnote says £123. Go with £125.","Class 2 (£3.45 pw) is usually better value than Class 3 (£17.75 pw)."]}
+];
+
+const INC_CARDS = [
+["gn1","C4-1","Personal allowance","£12,570; lost £1 per £2 over £100,000; gone at £125,140"],
+["gn2","C4-1","Income tax bands (after PA)","20% to £37,700; 40% to £125,140; 45% above"],
+["gn3","C4-1","Starting rate for savings","£5,000 at 0%, cut £1 per £1 of other income over the PA (gone at £17,570)"],
+["gn4","C4-1","Personal savings allowance","£1,000 basic / £500 higher / £0 additional"],
+["gn5","C4-1","Dividend allowance and rates","£500 for all; then 8.75% / 33.75% / 39.35%"],
+["gn6","C4-1","Marriage allowance","£1,260 transfer, saves £252 a year, backdate 4 years (up to £1,008)"],
+["gn7","C4-1","Blind person's allowance","£3,130, added to the PA"],
+["gn8","C4-2","Discretionary / A&M trust rates","45% other income, 39.35% dividends; nil if £500 or less, whole amount taxed if over"],
+["gn9","C4-2","Parental settlement limit","£100 a year per parent (£200 both)"],
+["gn10","C4-3","Property allowance / rent-a-room","£1,000 / £7,500"],
+["gn11","C4-3","REIT PID","20% withheld; higher pays extra 20%, additional extra 25%"],
+["gn12","C4-4","Class 1 thresholds","LEL £125 pw, PT £242 pw, UEL £967 pw"],
+["gn13","C4-4","Employee and employer Class 1","Employee 8% PT to UEL, 2% above; employer 15% above ST £175 pw"],
+["gn14","C4-4","Class 2 / Class 3 / Class 4","£3.45 pw / £17.75 pw / 6% £12,570 to £50,270, 2% above"],
+["gn15","C4-4","Pension ages","SPA 66, rising to 67 (2026-28) and 68 (2044-46); NMPA 55, rising to 57 in 2028"],
+["gp1","C4-1","PSA vs dividend allowance","PSA varies with your band (£1,000/£500/£0); DA is £500 for everyone"],
+["gp2","C4-1","Citizenship vs territorial tax","Citizenship: citizens taxed wherever they live (US, Eritrea). Territorial: only income earned in the country (Hong Kong, Singapore)"],
+["gp3","C4-2","IIP trustees vs discretionary trustees","IIP: basic rate 20% / 8.75%. Discretionary: 45% / 39.35% on the whole amount once over £500"],
+["gp4","C4-2","Life tenant vs remainderman","Life tenant gets the income now; remainderman gets the capital on the life tenant's death"],
+["gp5","C4-2","Parent vs grandparent gifts to a child","Parent: income over £100 a year taxed on the parent. Grandparent: no such rule"],
+["gp6","C4-3","Fund with 60%+ fixed interest vs under 60%","60%+: pays interest, taxed as savings (PSA). Under 60%: pays dividends (DA)"],
+["gp7","C4-3","PID vs non-PID","PID: taxed as rental income, 20% withheld, no DA. Non-PID: ordinary dividend, DA applies"],
+["gp8","C4-3","Repairs vs improvements","Repairs and maintenance are allowable; improvements are not"],
+["gp9","C4-3","Equalisation vs accumulation units","Equalisation: return of capital, not taxed, cuts CGT base cost. Accumulation: rolled-up income still taxed"],
+["gp10","C4-4","Class 2 vs Class 4","Class 2: voluntary flat £3.45 pw, gives benefits. Class 4: % of profits, no benefits"],
+["gp11","C4-4","Below LEL vs LEL to PT","Below LEL: no NICs, no credit. LEL to PT: no NICs, but credited"]
+].map(([id,topic,front,back])=>({id,topic,front,back,kind:id[1]==="n"?"Numbers":"Pairs"}));
+
+const INC_QUESTIONS = [
+["gst1","C4-1","Income £110,000. What is the personal allowance?",["£7,570","£12,570","£2,570","£0"],0,"£10,000 over £100,000, so the PA falls by £5,000: £12,570 − £5,000 = £7,570."],
+["gst2","C4-2","A discretionary trust earns £600 of interest. How much income tax do the trustees pay?",["£270","£45","£120","£0"],0,"Over £500, so the whole £600 is taxed at 45% = £270."],
+["gst3","C4-3","A higher rate taxpayer receives a REIT PID. How much extra tax is due after the amount withheld?",["20%","0%","25%","33.75%"],0,"20% is withheld; a higher rate taxpayer pays a further 20% (40% in total)."],
+["gst4","C4-1","What is the personal savings allowance for a higher rate taxpayer?",["£500","£1,000","£0","£5,000"],0,"£1,000 basic, £500 higher, nil additional."],
+["gst5","C4-1","In what order is income taxed?",["Non-savings, then savings, then dividends","Dividends, then savings, then non-savings","Savings, then non-savings, then dividends","All income together at one rate"],0,"Dividends always sit on top."],
+["gst6","C4-1","How much does the marriage allowance save the recipient each year?",["£252","£1,260","£126","£1,008"],0,"20% of £1,260 = £252. £1,008 is four years backdated."],
+["gst7","C4-3","What is the rent-a-room limit?",["£7,500","£1,000","£5,000","£12,570"],0,"£1,000 is the property allowance."],
+["gst8","C4-4","Which class of NIC gives no benefit entitlement?",["Class 4","Class 2","Class 3","Class 1 primary"],0,"Class 4 is a tax on profits with no benefits."],
+["gst9","C4-4","What rate of employee Class 1 NIC applies between the PT and UEL?",["8%","2%","12%","15%"],0,"8% PT to UEL, 2% above. 15% is the employer rate."],
+["gst10","C4-3","A fund holds 65% in fixed interest. Its distributions are taxed as:",["Savings income, with the PSA available","Dividend income, with the DA available","Capital gains","Tax-free income"],0,"60% or more in fixed interest = interest distribution."],
+
+["gx1","C4-1","Salary £51,350, interest £500, dividends £250 (2025-26, England). What is the total income tax?",["£7,972","£8,172","£7,540","£8,072"],0,"£37,700 × 20% = £7,540 + £1,080 × 40% = £432. Interest within the £500 PSA, dividends within the DA. £8,172 taxes the interest at 40%."],
+["gx2","C4-1","Salary £14,570 and interest £500. How much tax is due on the interest?",["£0","£100","£40","£20"],0,"Starting rate band = £5,000 − £2,000 = £3,000, so the interest is taxed at 0%."],
+["gx3","C4-1","Income of £120,000. What is the personal allowance?",["£2,570","£12,570","£7,570","£0"],0,"£20,000 over, so £10,000 lost: £12,570 − £10,000 = £2,570."],
+["gx4","C4-1","A basic rate taxpayer receives £2,500 of dividends on top of a £30,000 salary. How much dividend tax is due?",["£175.00","£218.75","£675.00","£0"],0,"(£2,500 − £500) × 8.75% = £175. £218.75 ignores the DA."],
+["gx5","C4-1","Which statement about marriage allowance is correct?",["The recipient must be a basic rate taxpayer","The transferor must be a higher rate taxpayer","It transfers the whole personal allowance","It cannot be backdated"],0,"Transferor earns under the PA; recipient is basic rate; £1,260 transfers; backdate 4 years."],
+["gx6","C4-1","Which country taxes on a citizenship basis?",["The United States","Hong Kong","The United Kingdom","Singapore"],0,"Only the US and Eritrea. UK is residential; Hong Kong and Singapore are territorial."],
+["gx7","C4-1","Employee earning £5,000 a month (2025-26, England). What is the monthly income tax?",["£952.66","£1,000.00","£628.33","£1,076.33"],0,"PA £1,047.50; taxable £3,952.50; £3,141.67 × 20% + £810.83 × 40% = £952.66."],
+["gx8","C4-1","Salary £60,000 and interest £1,200. How much tax is due on the interest?",["£280","£480","£200","£0"],0,"Higher rate taxpayer: PSA £500. (£1,200 − £500) × 40% = £280."],
+["gx9","C4-2","Trustees of an interest in possession trust receive dividends. At what rate do they pay tax?",["8.75%","39.35%","33.75%","0%, because of the dividend allowance"],0,"IIP trustees pay basic rate (8.75% dividends) and get no DA."],
+["gx10","C4-2","A discretionary trust receives £3,000 of dividends and no other income. What tax do the trustees pay?",["£1,180.50","£983.75","£262.50","£1,350.00"],0,"Whole amount over £500 at 39.35%: £3,000 × 39.35% = £1,180.50. £983.75 wrongly deducts £500 first."],
+["gx11","C4-2","A parent gives £20,000 to a bare trust for their 10-year-old. It earns £300 of interest. Who is taxed on it?",["The parent","The child","The trustees","No one, because it is under £500"],0,"Parental settlement: over £100 a year, income is taxed on the parent."],
+["gx12","C4-2","Which beneficiary qualifies a trust as a trust for the vulnerable?",["A 15-year-old whose father has died","A 20-year-old student","A grandchild of the settlor","A beneficiary aged 25 under an A&M trust"],0,"Relevant minor = under 18 with at least one parent dead."],
+["gx13","C4-3","Which expense is NOT allowable against residential rental income?",["Building an extension","Letting agent fees","Repairs to a leaking roof","Landlord's insurance"],0,"Improvements are not allowable."],
+["gx14","C4-3","An additional rate taxpayer receives a REIT PID of £2,000 gross. How much more tax do they pay after the amount withheld?",["£500","£400","£900","£0"],0,"45% − 20% withheld = extra 25%: £2,000 × 25% = £500."],
+["gx15","C4-3","Accumulation units in a unit trust held outside an ISA. The rolled-up income is:",["Taxed as if received","Tax-free until the units are sold","Taxed only as a capital gain","Exempt under the dividend allowance in all cases"],0,"Accumulated income is still taxable each year."],
+["gx16","C4-4","An employee earns £1,000 a week. What employee Class 1 NIC is due each week?",["£58.66","£60.64","£80.00","£58.00"],0,"(967 − 242) × 8% = £58.00 + (1,000 − 967) × 2% = £0.66."],
+["gx17","C4-4","Self-employed profits are £60,000. What are the Class 4 NICs?",["£2,456.60","£3,600.00","£2,262.00","£2,845.80"],0,"(50,270 − 12,570) × 6% = £2,262 + (60,000 − 50,270) × 2% = £194.60."],
+["gx18","C4-4","Earnings between the LEL and the PT mean that the employee:",["Pays no NICs but is credited","Pays 8% NICs","Pays no NICs and gets no credit","Pays 2% NICs"],0,"LEL to PT: no NICs, but credited for benefits."]
+].map(([id,topic,q,options,a,why])=>({id,topic,q,options,a,why,kind:"mcq",src:id.startsWith("gst")?"Self-test":"Practice"}));
+
+const INC_NUM = {
+  inc_salary:{label:"Income tax on a salary",topic:"C4-1"}, inc_pa:{label:"Tapered personal allowance",topic:"C4-1"},
+  inc_savings:{label:"Tax on savings interest",topic:"C4-1"}, inc_div:{label:"Tax on dividends",topic:"C4-1"},
+  inc_trust:{label:"Discretionary trust tax",topic:"C4-2"}, inc_pid:{label:"REIT PID extra tax",topic:"C4-3"},
+  inc_nic:{label:"Class 1 NICs",topic:"C4-4"}, inc_class4:{label:"Class 4 NICs",topic:"C4-4"}
+};
+
+/* ============================================================
+   CONTENT: Chapter 4, Section 2 (Capital Gains Tax and Inheritance Tax)
+   Topic ids carry a "C4-" prefix. Figures are 2025-26 from Duke's notes.
+   ============================================================ */
+const CGI_TOPICS = [
+{id:"C4-5.1", title:"CGT Basics: Persons, Disposals and Assets", blurb:"The three things CGT needs, what counts as a disposal, and exempt vs chargeable assets.",
+html:`<p>CGT needs all three: <b>chargeable person + chargeable disposal + chargeable asset</b>.</p>
+<ul><li><b>Disposal</b> = sale, gift, transfer, exchange, or compensation (e.g. an insurance payout).</li>
+<li><b>Not</b> a disposal for CGT: transfers between <b>spouses/civil partners</b>, transfers <b>on death</b>, or disposal of an <b>exempt asset</b>.</li></ul>
+<h3>Exempt vs chargeable assets</h3>
+<div class="tw"><table class="tbl"><tr><th>Exempt</th><th>Chargeable</th></tr>
+<tr><td>Main home (PPR)</td><td>Second homes, buy-to-let</td></tr>
+<tr><td>Gifts to spouse/civil partner (unless separated all year)</td><td>Land, buildings, leases</td></tr>
+<tr><td>Gifts to registered charities</td><td>Shares and investments</td></tr>
+<tr><td><b>Gilts and qualifying corporate bonds</b></td><td>Antiques, jewellery</td></tr>
+<tr><td>Premium bonds</td><td>Possessions over £6,000</td></tr>
+<tr><td>ISAs, JISAs, CTFs, most pensions</td><td>Sole trader business assets, goodwill</td></tr>
+<tr><td>Most life policies</td><td><b>Cryptocurrency</b> (losses allowable too)</td></tr>
+<tr><td>Chattels up to £6,000; wasting chattels (life under 50 years)</td><td></td></tr>
+<tr><td>Private cars, betting/lottery winnings</td><td></td></tr>
+<tr><td>Foreign currency for personal use</td><td></td></tr>
+<tr><td>VCT shares; EIS/SEIS shares held <b>3+ years</b></td><td></td></tr>
+<tr><td>Personal injury compensation</td><td></td></tr></table></div>
+<h3>Collectives</h3>
+<p>OEICs, unit trusts, ETFs, investment trusts and REITs pay <b>no CGT on gains inside</b> the fund. The investor pays CGT on disposal of their holding as normal.</p>`,
+traps:["Gifts between spouses and transfers <b>on death</b> are <b>not disposals</b> for CGT.","<b>Gilts and qualifying corporate bonds</b> are exempt from CGT. Shares are chargeable.","Crypto is <b>chargeable</b>, and its losses are allowable.","Chattels are exempt only up to <b>£6,000</b> proceeds (or if wasting, life under 50 years).","EIS/SEIS shares are exempt only if held <b>3+ years</b>.","Funds pay no CGT inside; the <b>investor</b> pays on selling the units or shares."]},
+
+{id:"C4-5.2", title:"Calculating CGT: Rates, BADR, Trusts and Charities", blurb:"The gain calculation, the £3,000 exemption, 18%/24% rates, BADR, trusts and charities.",
+html:`<h3>Calculation</h3>
+<p><span class="formula">Proceeds − incidental disposal costs = net proceeds</span></p>
+<p><span class="formula">Net proceeds − allowable costs = chargeable gain (or allowable loss)</span></p>
+<ul><li><b>Incidental disposal costs:</b> valuation, agent, legal, advertising. <b>Not</b> the costs of appealing HMRC's valuation.</li>
+<li><b>Allowable costs:</b> purchase cost, costs of buying, and <b>enhancement</b> spending.</li></ul>
+<h3>Individuals</h3>
+<ul><li>UK residents are taxed on <b>worldwide</b> gains.</li>
+<li>Annual exempt amount (AEA) <b>£3,000</b>, use it or lose it.</li>
+<li>Rates: <b>18%</b> basic rate, <b>24%</b> higher/additional rate. Reported via <b>Self-Assessment</b>.</li></ul>
+<div class="worked"><b class="lab">Worked example</b>Basic rate taxpayer, gain £15,500. £15,500 − £3,000 = £12,500 × 18% = <b>£2,250</b>.</div>
+<h3>Business Asset Disposal Relief (BADR)</h3>
+<p><b>14%</b> for 2025-26, <b>18%</b> from 6 April 2026. <b>£1m lifetime</b> limit. Asset owned at least <b>2 years</b>.</p>
+<h3>Trusts</h3>
+<ul><li>Trustees usually pay (except settlor-interested or offshore trusts, where it may fall on the <b>settlor</b>).</li>
+<li>Exemption <b>£1,500</b> for most trusts, <b>£3,000</b> for personal representatives and vulnerable trusts.</li>
+<li>Rate <b>24%</b>.</li></ul>
+<h3>Charities</h3>
+<p>Exempt if gains are used for charitable purposes. Losses are <b>not relievable</b>.</p>
+<h3>Textbook inconsistencies</h3>
+<ul><li>The Michael and Sarah case says 20%. Current rates are <b>18% / 24%</b>.</li>
+<li>Section 5.1.2 says trust BADR is 18%. Individuals pay <b>14%</b> for 2025-26, 18% from April 2026.</li></ul>`,
+traps:["CGT rates are <b>18% / 24%</b>, not 10%/20% or the 20% in the Michael and Sarah case.","Costs of <b>appealing HMRC's valuation</b> are not allowable.","Enhancement spending <b>is</b> an allowable cost.","Trusts get <b>£1,500</b>, not £3,000 (PRs and vulnerable trusts get £3,000), and pay <b>24%</b>.","BADR is <b>14%</b> in 2025-26 and <b>18%</b> from 6 April 2026, £1m lifetime, 2 years' ownership."]},
+
+{id:"C4-5.3", title:"Capital Losses", blurb:"Same-year losses vs brought-forward losses, and why the order matters.",
+html:`<h3>Losses: the order matters</h3>
+<ol><li><b>Same-year losses</b> come off first, <b>before</b> the annual exemption (even if that wastes the AEA).</li>
+<li><b>Brought-forward losses:</b> annual exemption first, <b>then</b> losses, using only enough to bring the gain to nil.</li>
+<li>Losses carry forward <b>indefinitely</b>. They are <b>never</b> carried back.</li></ol>
+<div class="worked"><b class="lab">Worked example</b>Gain £15,500, AEA £3,000, brought-forward losses £15,000. £15,500 − £3,000 = £12,500. Use £12,500 of the losses. Tax is nil. <b>£2,500 of losses carried forward.</b></div>`,
+traps:["Same-year losses are set off in full, <b>even if the AEA is wasted</b>.","Brought-forward losses are used <b>after</b> the AEA and only down to nil, so the rest is preserved.","Losses are <b>never carried back</b>.","Charity losses are not relievable."]},
+
+{id:"C4-6.1", title:"IHT Basics, PETs and CLTs", blurb:"What IHT taxes, the 7-year look-back, PET vs CLT, the rates and the death steps.",
+html:`<p>IHT taxes <b>how much you give away</b>, measured by the <b>loss to the giver's estate</b>, not the gain to the receiver. It applies on death and to gifts up to <b>7 years</b> (sometimes <b>14</b>) before death. Unused pensions come into the estate from <b>April 2027</b>.</p>
+<ul><li><b>UK domiciled:</b> worldwide assets. <b>Non-domiciled:</b> UK assets only.</li>
+<li>A sale at full market value is not a transfer (but may trigger CGT).</li></ul>
+<h3>PET vs CLT</h3>
+<div class="tw"><table class="tbl"><tr><th></th><th>PET</th><th>CLT</th></tr>
+<tr><td>What</td><td>Gift to an individual (or a <b>bare trust</b>)</td><td>Gift into a <b>discretionary/relevant property trust</b></td></tr>
+<tr><td>Tax when made</td><td>None</td><td><b>20%</b> on the excess over the NRB</td></tr>
+<tr><td>If donor dies within 7 years</td><td>Becomes chargeable at 40% (tapered)</td><td>Topped up to 40%</td></tr></table></div>
+<h3>Rates</h3>
+<p>0% up to the NRB. <b>20%</b> on lifetime CLTs. <b>40%</b> on death. <b>36%</b> if 10%+ of the net estate goes to charity.</p>
+<h3>Death steps</h3>
+<ol><li>Look back 7 years for CLTs: they use up the NRB first.</li><li>Value the death estate.</li><li>Tax the excess over the remaining NRB at 40% (or 36%), applying reliefs.</li><li>Split the bill.</li></ol>
+<p class="muted">Textbook inconsistency: one line calls transfers into trusts PETs. Remember: <b>bare trust = PET, discretionary/relevant property trust = CLT</b>.</p>`,
+traps:["IHT is measured by the <b>loss to the donor's estate</b>, not the gain to the recipient.","Bare trust = <b>PET</b>. Discretionary/relevant property trust = <b>CLT</b>.","Lifetime rate on a CLT is <b>20%</b>; death rate is <b>40%</b>; <b>36%</b> if 10%+ of the net estate goes to charity.","CLTs in the last 7 years use up the NRB <b>first</b>.","Unused pensions fall into the estate from <b>April 2027</b>."]},
+
+{id:"C4-6.2", title:"Nil Rate Band and Residence Nil Rate Band", blurb:"£325,000 NRB, transfer between spouses, the £175,000 RNRB and its taper over £2m.",
+html:`<h3>Nil rate band (NRB) £325,000</h3>
+<p>The unused <b>percentage</b> transfers to a spouse/civil partner (up to <b>£650,000</b> in total). It does <b>not</b> transfer to siblings.</p>
+<div class="worked"><b class="lab">Worked example</b>First spouse leaves £130,000 to the children and the rest to the spouse. That used 40% of the NRB, so <b>60% (£195,000)</b> transfers. Survivor's NRB = £325,000 + £195,000 = <b>£520,000</b>.</div>
+<h3>Residence nil rate band (RNRB) £175,000</h3>
+<ul><li>For the main home passing to <b>direct descendants</b>.</li><li>Transferable to a spouse. Also works if the person downsized.</li>
+<li>Tapered by <b>£1 for every £2</b> the estate is over <b>£2m</b>, so it is gone at <b>£2.35m</b>.</li></ul>
+<p><span class="formula">RNRB = £175,000 − (Estate − £2,000,000) ÷ 2</span></p>
+<p>Maximum per couple: £325k × 2 + £175k × 2 = <b>£1m</b>.</p>`,
+traps:["The unused NRB transfers as a <b>percentage</b>, to a spouse/civil partner only, not siblings.","RNRB needs the home to go to <b>direct descendants</b>.","RNRB tapers <b>£1 per £2</b> over <b>£2m</b> and is gone at <b>£2.35m</b>.","Couple maximum = <b>£1m</b> (2 × £325k + 2 × £175k)."]},
+
+{id:"C4-6.3", title:"IHT Exemptions", blurb:"Annual, small gifts, normal expenditure, wedding, maintenance, plus spouse, charity and political parties.",
+html:`<h3>Lifetime-only exemptions</h3>
+<div class="tw"><table class="tbl"><tr><th>Exemption</th><th>Amount</th><th>Rules</th></tr>
+<tr><td>Annual</td><td><b>£3,000</b></td><td>Carry forward <b>1 year only</b>. Earlier gifts use it first</td></tr>
+<tr><td>Small gifts</td><td><b>£250</b> per person</td><td>Over £250 = whole gift chargeable. <b>Can't combine</b> with the annual exemption to the same person. Not into trusts</td></tr>
+<tr><td>Normal expenditure out of income</td><td><b>Unlimited</b></td><td>Regular, from income not capital, keeps the donor's standard of living</td></tr>
+<tr><td>Wedding/civil partnership</td><td>£5,000 parent, £2,500 grandparent, £1,000 anyone</td><td>Made on or <b>before</b> the day only</td></tr>
+<tr><td>Education and maintenance</td><td>Reasonable</td><td>Until 18 or end of full-time education</td></tr></table></div>
+<h3>Lifetime and death exemptions</h3>
+<ul><li><b>Spouse/civil partner:</b> unlimited if the recipient is UK-domiciled. Applies even if living apart; ends on divorce.</li>
+<li><b>UK charities.</b></li>
+<li><b>Qualifying political parties</b> (2 MPs, or 1 MP + 150,000 votes).</li>
+<li><b>National benefit</b> (museums, universities, National Trust).</li></ul>`,
+traps:["Annual exemption carries forward <b>one year only</b>, and the current year is used first.","A gift over £250 loses the small gifts exemption <b>entirely</b>, and it can't be combined with the annual exemption for the same person.","Wedding gifts must be made <b>on or before</b> the day: £5,000 parent, <b>£2,500 grandparent</b>, £1,000 anyone.","Normal expenditure must come from <b>income</b>, not capital.","Spouse exemption still applies when <b>living apart</b>; it ends on divorce."]},
+
+{id:"C4-6.4", title:"Taper Relief and the 14-Year Rule", blurb:"How taper cuts the tax on failed PETs, and how a CLT can stretch the look-back to 14 years.",
+html:`<h3>Taper relief</h3>
+<p>Taper reduces the <b>tax</b>, not the gift, and only applies where the PET exceeds the NRB.</p>
+<div class="tw"><table class="tbl"><tr><th>Years before death</th><th>Relief</th><th>Effective rate</th></tr>
+<tr><td>0–3</td><td>0%</td><td>40%</td></tr><tr><td>3–4</td><td>20%</td><td>32%</td></tr><tr><td>4–5</td><td>40%</td><td>24%</td></tr>
+<tr><td>5–6</td><td>60%</td><td>16%</td></tr><tr><td>6–7</td><td>80%</td><td>8%</td></tr><tr><td>7+</td><td>100%</td><td>0%</td></tr></table></div>
+<div class="worked"><b class="lab">Worked example</b>A PET made 4.5 years before death: taper relief 40%, so the effective rate is <b>24%</b> on the part above the NRB.</div>
+<h3>14-year rule</h3>
+<p>A CLT, then a PET within 7 years, then death within 7 years of the PET. The CLT still uses the NRB when the PET is taxed, so both are pulled back in. The effective look-back is up to <b>14 years</b>.</p>`,
+traps:["Taper reduces the <b>tax</b>, not the value of the gift.","No taper benefit if the PET is within the NRB (there's no tax to reduce).","4–5 years = 40% relief = <b>24%</b> effective rate.","The 14-year rule needs a <b>CLT</b> followed by a PET."]},
+
+{id:"C4-6.5", title:"Business and Agricultural Relief", blurb:"BR at 100% or 50%, APR, the April 2026 £1m cap, and quick succession relief.",
+html:`<h3>Business Relief (owned 2 years)</h3>
+<div class="tw"><table class="tbl"><tr><th>100%</th><th>50%</th></tr>
+<tr><td>Unincorporated business (sole trader, partnership)</td><td>Controlling (<b>50%+</b>) shareholding in a <b>listed</b> company</td></tr>
+<tr><td>Unquoted and <b>AIM</b> shares, any size</td><td>Land, buildings or machinery used by a business the donor controlled</td></tr></table></div>
+<p>Not available for investment or dealing businesses, or assets under a binding sale contract.</p>
+<h3>Agricultural Property Relief (APR)</h3>
+<ul><li>UK, Channel Islands, Isle of Man and EEA land, crops and buildings. <b>Not animals or equipment.</b></li>
+<li><b>100%</b> owner-occupied (and newer lets). <b>50%</b> most other let farmland.</li>
+<li>Occupied 2 years or owned 7.</li><li><b>APR is applied before BR.</b></li></ul>
+<div class="worked"><b class="lab">From April 2026</b>The first <b>£1m</b> of combined BR/APR is at 100%, then 50% (an effective 20% rate). AIM/unquoted shares: 50%.</div>
+<h3>Quick succession relief</h3>
+<p>Same property taxed twice within <b>5 years</b>: reduces the tax on the second death.</p>`,
+traps:["BR needs <b>2 years'</b> ownership; investment and dealing businesses don't qualify.","AIM and unquoted shares = <b>100%</b> (in 2025-26). A controlling stake in a <b>listed</b> company = 50%.","APR excludes <b>animals and equipment</b> and is applied <b>before</b> BR.","From April 2026: £1m at 100%, then 50%; AIM/unquoted shares 50%.","Quick succession relief = second death within <b>5 years</b>."]},
+
+{id:"C4-6.6", title:"Gifts with Reservation, Valuation and Variations", blurb:"GWR and POAT, valuing quoted shares and funds, life policies, deeds of variation and disclaimers.",
+html:`<h3>Gifts with reservation (GWR)</h3>
+<p>You give it but keep using it (e.g. live in the gifted house rent free).</p>
+<ul><li>Still reserved at death: taxed at its <b>value at death</b>.</li>
+<li>If released: treated as a PET from the release date, with <b>no annual exemption</b>.</li>
+<li>Escape: pay <b>full market rent</b>.</li>
+<li><b>POAT/POAC:</b> annual income tax charge on pre-owned assets, nil if the benefit is under <b>£5,000</b>.</li></ul>
+<h3>Valuation</h3>
+<div class="tw"><table class="tbl"><tr><th>Asset</th><th>Method</th></tr>
+<tr><td>Quoted shares</td><td>Lower of <b>quarter up</b> (bid + ¼ of the spread) or the <b>average of the highest and lowest marked bargains</b></td></tr>
+<tr><td>Unit trusts</td><td>Manager's <b>bid</b> price</td></tr>
+<tr><td>Single-priced OEICs</td><td>That price</td></tr>
+<tr><td>Unquoted shares</td><td>Negotiated with HMRC Shares Valuation</td></tr></table></div>
+<div class="worked"><b class="lab">Worked example</b>Quarter up: quoted 300–304p = 300 + (4 ÷ 4) = <b>301p</b>. Death valuations are <b>cum-dividend</b>.</div>
+<h3>Life policies</h3>
+<p>An own-life policy is in the estate unless <b>written in trust</b>. Assigning a policy is a PET of the <b>greater</b> of premiums paid or market value.</p>
+<h3>Deed of variation vs disclaimer</h3>
+<ul><li><b>Disclaimer</b> sends the gift back into the estate, to the next beneficiary.</li><li><b>Variation</b> redirects it to anyone.</li>
+<li>Both: within <b>2 years</b> of death, signed by all affected (18+, sound mind), <b>no consideration</b>.</li></ul>`,
+traps:["GWR still in place at death is taxed at the <b>value at death</b>.","Released reservation = PET from release, <b>no annual exemption</b>.","POAT charge is nil if the benefit is under <b>£5,000</b>.","Quoted shares: the <b>lower</b> of quarter up and the average of the highest and lowest marked bargains.","Unit trusts use the <b>bid</b> price; death valuations are <b>cum-dividend</b>.","Deed of variation and disclaimer: within <b>2 years</b>, no consideration."]},
+
+{id:"C4-6.7", title:"Trusts, Intestacy and Estate Administration", blurb:"IHT on trusts, who inherits without a will, executors vs administrators.",
+html:`<h3>Trusts</h3>
+<div class="tw"><table class="tbl"><tr><th>Trust</th><th>Into it</th><th>Ongoing</th><th>Out of it</th></tr>
+<tr><td>Discretionary / IIP</td><td><b>CLT</b>, 20% over NRB</td><td><b>6%</b> every 10 years</td><td>Exit charge, nil if nothing was due at creation</td></tr>
+<tr><td>Bare</td><td><b>PET</b></td><td>In the beneficiary's estate</td><td>n/a</td></tr></table></div>
+<h3>Intestacy (England and Wales)</h3>
+<ul><li><b>Spouse + children:</b> spouse gets <b>£322,000</b>, the chattels and <b>half the rest</b>. Children share the other half at 18.</li>
+<li><b>Spouse, no children:</b> spouse gets <b>everything</b>.</li>
+<li><b>Children, no spouse:</b> children get everything equally.</li>
+<li><b>Neither:</b> parents, full siblings, half siblings, grandparents, full uncles/aunts, half uncles/aunts, then the <b>Crown (bona vacantia)</b>.</li>
+<li>Unmarried partners and unadopted stepchildren get <b>nothing</b>. Separated (not divorced) spouses still inherit.</li></ul>
+<h3>Estate administration</h3>
+<div class="tw"><table class="tbl"><tr><th></th><th>With a will</th><th>No will</th></tr>
+<tr><td>Who acts</td><td><b>Executors</b></td><td><b>Administrators</b></td></tr>
+<tr><td>Authority</td><td>Grant of <b>probate</b></td><td><b>Letters of administration</b></td></tr></table></div>
+<p>Personal representatives get <b>no personal allowance</b>.</p>`,
+traps:["Discretionary trust periodic charge = <b>6% every 10 years</b>.","Spouse + children: spouse gets <b>£322,000</b> + chattels + <b>half</b> the rest.","Unmarried partners get <b>nothing</b> on intestacy; separated (not divorced) spouses still inherit.","Executors = will = probate. Administrators = no will = letters of administration.","Personal representatives get <b>no personal allowance</b>."]}
+];
+
+const CGI_CARDS = [
+["jn1","C4-5.2","CGT annual exempt amount","£3,000 individuals (use it or lose it). £1,500 most trusts. £3,000 PRs and vulnerable trusts"],
+["jn2","C4-5.2","CGT rates 2025-26","18% basic rate, 24% higher/additional rate and trusts"],
+["jn3","C4-5.2","BADR","14% for 2025-26, 18% from 6 April 2026. £1m lifetime limit. Owned 2 years"],
+["jn4","C4-5.1","Chattels exemption","Proceeds up to £6,000, or wasting (life under 50 years)"],
+["jn5","C4-5.1","EIS/SEIS shares exempt from CGT after","3 years"],
+["jn6","C4-6.2","IHT nil rate band","£325,000 (up to £650,000 for a couple)"],
+["jn7","C4-6.2","Residence nil rate band","£175,000, tapered £1 per £2 over £2m, gone at £2.35m"],
+["jn8","C4-6.1","IHT rates","0% to NRB / 20% lifetime CLT / 40% death / 36% if 10%+ of net estate to charity"],
+["jn9","C4-6.3","IHT annual exemption","£3,000, carry forward 1 year only"],
+["jn10","C4-6.3","Small gifts exemption","£250 per person (whole gift chargeable if over)"],
+["jn11","C4-6.3","Wedding gifts","£5,000 parent / £2,500 grandparent / £1,000 anyone"],
+["jn12","C4-6.7","Trust periodic charge","6% every 10 years"],
+["jn13","C4-6.4","Taper relief, 4–5 years","40% relief, effective rate 24%"],
+["jn14","C4-6.5","Quick succession relief","Same property taxed twice within 5 years"],
+["jn15","C4-6.6","Deed of variation or disclaimer deadline","Within 2 years of death"],
+["jn16","C4-6.7","Intestacy: spouse with children gets","£322,000 + chattels + half the rest"],
+["jn17","C4-6.6","POAT charge is nil if the benefit is under","£5,000"],
+["jn18","C4-6.1","Unused pensions enter the estate from","April 2027"],
+["jp1","C4-6.1","PET vs CLT","PET: gift to an individual or bare trust, no tax when made. CLT: gift into a discretionary trust, 20% over the NRB now"],
+["jp2","C4-5.3","Same-year vs brought-forward losses","Same-year: before the AEA, even if it wastes it. Brought forward: after the AEA, only down to nil"],
+["jp3","C4-6.5","BR 100% vs 50%","100%: sole trader/partnership, unquoted and AIM shares. 50%: controlling stake in a listed company, assets used by a controlled business"],
+["jp4","C4-6.5","APR vs BR order","APR is applied first, then BR"],
+["jp5","C4-6.6","Disclaimer vs deed of variation","Disclaimer: back into the estate to the next beneficiary. Variation: redirect to anyone"],
+["jp6","C4-6.7","Executors vs administrators","Executors: there's a will, grant of probate. Administrators: no will, letters of administration"],
+["jp7","C4-6.6","Quarter up vs marked bargains","Bid + ¼ of spread vs average of highest and lowest bargains. Use the lower"],
+["jp8","C4-6.1","UK domiciled vs non-domiciled (IHT)","Domiciled: worldwide assets. Non-domiciled: UK assets only"],
+["jp9","C4-5.1","Gilts vs shares for CGT","Gilts and QCBs: exempt. Shares: chargeable"],
+["jp10","C4-6.3","Lifetime-only vs lifetime-and-death exemptions","Lifetime only: annual, small gifts, normal expenditure, wedding, maintenance. Both: spouse, charity, political parties, national benefit"],
+["jp11","C4-6.7","Bare trust vs discretionary trust (IHT)","Bare: PET, in the beneficiary's estate. Discretionary: CLT, 6% every 10 years, exit charges"]
+].map(([id,topic,front,back])=>({id,topic,front,back,kind:id[1]==="n"?"Numbers":"Pairs"}));
+
+const CGI_QUESTIONS = [
+["jst1","C4-5.1","Is a gilt chargeable to CGT?",["No, gilts are exempt","Yes, at 18% or 24%","Only if held for less than 3 years","Only for higher rate taxpayers"],0,"Gilts and qualifying corporate bonds are exempt assets."],
+["jst2","C4-6.4","A PET was made 4.5 years before death. What is the effective IHT rate on the part above the nil rate band?",["24%","32%","16%","40%"],0,"4–5 years gives 40% taper relief, so 40% × 60% = 24%."],
+["jst3","C4-6.3","How much of a wedding gift from a grandparent is exempt?",["£2,500","£5,000","£1,000","£3,000"],0,"£5,000 parent, £2,500 grandparent, £1,000 anyone else."],
+["jst4","C4-6.6","What is the deadline for a deed of variation?",["2 years from death","1 year from death","6 months from death","7 years from death"],0,""],
+["jst5","C4-5.2","What is the CGT annual exempt amount for an individual in 2025-26?",["£3,000","£1,500","£6,000","£12,570"],0,"£1,500 is the figure for most trusts."],
+["jst6","C4-5.2","What are the CGT rates for individuals in 2025-26?",["18% basic, 24% higher and additional","10% basic, 20% higher","20% for everyone","18% basic, 28% higher"],0,"The textbook case that says 20% is out of date."],
+["jst7","C4-6.2","What is the residence nil rate band and when does it start to taper?",["£175,000, tapered over £2m","£175,000, tapered over £2.35m","£325,000, tapered over £2m","£125,000, tapered over £1m"],0,"Tapered £1 per £2 over £2m, so gone at £2.35m."],
+["jst8","C4-6.3","What is the small gifts exemption?",["£250 per person","£250 in total a year","£500 per person","£3,000 per person"],0,"Over £250 and the whole gift is chargeable."],
+["jst9","C4-5.2","What is the BADR rate for 2025-26?",["14%","10%","18%","24%"],0,"14% for 2025-26, rising to 18% from 6 April 2026."],
+["jst10","C4-5.2","A basic rate taxpayer makes a gain of £15,500 and has no losses. What CGT is due?",["£2,250","£2,790","£3,000","£3,720"],0,"(£15,500 − £3,000) × 18% = £2,250. £2,790 ignores the AEA; £3,000 and £3,720 use 24%."],
+
+["jx1","C4-5.2","A higher rate taxpayer makes a chargeable gain of £23,000 on shares in 2025-26 and has no losses. What CGT is due?",["£4,800","£5,520","£3,600","£4,600"],0,"(£23,000 − £3,000) × 24% = £4,800. £5,520 ignores the AEA, £3,600 uses 18%, £4,600 uses 20% on the whole gain."],
+["jx2","C4-5.2","An investor has £8,000 of basic rate band left and makes a gain of £21,000. Using 2025-26 rules, what CGT is due?",["£3,840","£3,240","£4,320","£4,560"],0,"Taxable £18,000: £8,000 × 18% = £1,440 plus £10,000 × 24% = £2,400. Total £3,840."],
+["jx3","C4-5.2","Shares are sold for £50,000 with £1,500 selling costs. They cost £20,000 plus £500 buying costs, and £4,000 of enhancement spending was incurred. What is the chargeable gain before the annual exempt amount?",["£24,000","£28,000","£25,500","£21,000"],0,"£50,000 − £1,500 − £20,000 − £500 − £4,000 = £24,000. Enhancement is allowable."],
+["jx4","C4-5.3","In 2025-26 an individual makes gains of £20,000 and losses of £18,000 in the same year. How much of the annual exempt amount is wasted?",["£1,000","£0","£3,000","£2,000"],0,"Same-year losses come off first in full, leaving £2,000. The £3,000 AEA covers it, so £1,000 is wasted."],
+["jx5","C4-5.3","An individual has a gain of £10,000 and brought-forward losses of £12,000. How much loss is carried forward to next year?",["£5,000","£2,000","£0","£12,000"],0,"AEA first: £10,000 − £3,000 = £7,000. Use £7,000 of losses, so £5,000 carries forward."],
+["jx6","C4-5.2","A discretionary trust makes a gain of £9,500. Using 2025-26 rules, what CGT do the trustees pay?",["£1,920","£1,560","£1,440","£2,280"],0,"(£9,500 − £1,500) × 24% = £1,920. Trusts get £1,500, not £3,000."],
+["jx7","C4-6.2","On the first spouse's death, £97,500 went to the children and the rest to the surviving spouse. What nil rate band is available on the survivor's death?",["£552,500","£650,000","£422,500","£227,500"],0,"£97,500 used 30% of the NRB, so 70% (£227,500) transfers. £325,000 + £227,500 = £552,500."],
+["jx8","C4-6.2","An estate is worth £2,200,000 and the home passes to the children. What residence nil rate band is available?",["£75,000","£175,000","£0","£125,000"],0,"£175,000 − (£2.2m − £2m) ÷ 2 = £175,000 − £100,000 = £75,000."],
+["jx9","C4-6.1","A single person dies with an estate of £600,000. There were no lifetime gifts and no home passes to descendants. What IHT is due?",["£110,000","£240,000","£82,500","£55,000"],0,"(£600,000 − £325,000) × 40% = £110,000."],
+["jx10","C4-6.1","After exemptions and the nil rate band, £400,000 of an estate is chargeable. The will leaves enough to charity to qualify for the reduced rate. What IHT is due?",["£144,000","£160,000","£128,000","£80,000"],0,"10%+ of the net estate to charity gives a 36% rate: £400,000 × 36% = £144,000."],
+["jx11","C4-6.4","After all exemptions, a PET of £400,000 was made 4.5 years before death. There were no other gifts. What IHT is due on the PET?",["£18,000","£30,000","£12,000","£96,000"],0,"(£400,000 − £325,000) × 40% = £30,000, less 40% taper = £18,000."],
+["jx12","C4-6.1","A donor with no previous gifts, whose annual exemptions are already used, puts £340,000 into a discretionary trust. The trustees pay the tax. What lifetime IHT is due?",["£3,000","£6,000","£68,000","£0"],0,"A CLT: (£340,000 − £325,000) × 20% = £3,000. £6,000 uses the 40% death rate."],
+["jx13","C4-6.6","A quoted share is priced 410p–418p. The day's marked bargains were 409p, 412p and 417p. What is its IHT value?",["412p","413p","414p","410p"],0,"Quarter up = 410 + 8 ÷ 4 = 412p. Average of highest and lowest bargains = 413p. Take the lower: 412p."],
+["jx14","C4-6.3","In 2025-26 a parent gives a child £15,000 on their wedding day. Neither this year's nor last year's annual exemption has been used. What is the PET?",["£4,000","£10,000","£7,000","£9,000"],0,"£15,000 − £5,000 wedding − £3,000 − £3,000 annual = £4,000."],
+["jx15","C4-6.7","A man dies intestate in England leaving a wife and two children. His estate is £722,000 plus personal chattels. How much does his wife receive, excluding the chattels?",["£522,000","£722,000","£361,000","£322,000"],0,"£322,000 plus half of the remaining £400,000 = £522,000."],
+["jx16","C4-6.3","Which gift is NOT covered by the small gifts exemption?",["£400 to a niece","£250 to each of 10 friends","£200 to a neighbour","£150 to a godchild"],0,"Over £250 and the whole gift is chargeable, though the annual exemption could cover it instead."],
+["jx17","C4-6.5","Which asset normally gets 50% Business Relief rather than 100% in 2025-26?",["A controlling stake in a listed company","AIM shares held 3 years","An unincorporated sole trader business","Unquoted trading company shares"],0,"A controlling listed stake gets 50%. Unincorporated businesses, unquoted and AIM shares get 100% (before April 2026)."],
+["jx18","C4-6.6","A mother gives her house to her son but carries on living in it rent free until she dies. How is the house treated for IHT?",["A gift with reservation, taxed at its value at death","A PET that has fallen out of charge after 7 years","Exempt, because she gave it away","A CLT taxed at 20% when made"],0,"She kept using it, so it stays in her estate at its value at death unless she paid full market rent."]
+].map(([id,topic,q,options,a,why])=>({id,topic,q,options,a,why,kind:"mcq",src:id.startsWith("jst")?"Self-test":"Practice"}));
+
+const CGI_NUM = {
+  cgi_cgt:{label:"CGT bill",topic:"C4-5.2"}, cgi_gain:{label:"Chargeable gain",topic:"C4-5.2"},
+  cgi_loss:{label:"Losses and the AEA",topic:"C4-5.3"}, cgi_trust:{label:"Trust CGT",topic:"C4-5.2"},
+  cgi_estate:{label:"IHT on a death estate",topic:"C4-6.2"}, cgi_taper:{label:"Taper relief on a PET",topic:"C4-6.4"},
+  cgi_clt:{label:"Lifetime tax on a CLT",topic:"C4-6.1"}, cgi_nrb:{label:"Transferred NRB",topic:"C4-6.2"}
+};
+
+/* ============================================================
+   CONTENT: Chapter 4, Section 3 (Residency, Other Taxes and Tax Planning)
+   Notes sections 7 to 12. Figures are 2025-26 unless stated.
+   ============================================================ */
+const RDO_TOPICS = [
+{id:"C4-7", title:"Residency and Domicile", blurb:"Residence vs domicile, the statutory residence test, sufficient ties, the 2025 residence-based regime, treaties and withholding tax.",
+html:`<p><b>Residence = short term</b>: where you live. <b>Domicile = permanent</b> home. You can have dual residence or dual nationality, but <b>never dual domicile</b>.</p>
+<h3>Statutory residence test</h3>
+<p>Applied to <b>each tax year separately</b>, in this order: automatic overseas tests, then automatic UK tests, then sufficient ties.</p>
+<div class="tw"><table class="tbl"><tr><th>Test</th><th>Result</th><th>Rule</th></tr>
+<tr><td>1st overseas</td><td>Non-resident</td><td>Resident in 1+ of the last 3 years, <b>under 16 days</b> in the UK</td></tr>
+<tr><td>2nd overseas</td><td>Non-resident</td><td>Not resident in the last 3 years, <b>under 46 days</b></td></tr>
+<tr><td>3rd overseas</td><td>Non-resident</td><td>Full-time work abroad (35 hrs a week), <b>under 91 days</b> in the UK, under 31 working days</td></tr>
+<tr><td>1st UK</td><td>Resident</td><td><b>183+ days</b> in the UK</td></tr>
+<tr><td>2nd UK</td><td>Resident</td><td>UK home for 91+ days (30 in the year), present 30+ days, under 30 days in any overseas home</td></tr>
+<tr><td>3rd UK</td><td>Resident</td><td>Full-time UK work for 365 days, 75%+ of 3-hour days in the UK</td></tr></table></div>
+<h3>Sufficient ties: ties needed to be resident</h3>
+<div class="tw"><table class="tbl"><tr><th>Days in UK</th><th>Was resident (last 3 yrs)</th><th>Was not resident</th></tr>
+<tr><td>16–45</td><td>All 4</td><td>Always non-resident</td></tr>
+<tr><td>46–90</td><td>3</td><td>All 4</td></tr>
+<tr><td>91–120</td><td>2</td><td>3</td></tr>
+<tr><td>120+</td><td>1</td><td>2</td></tr></table></div>
+<p>Pattern: <b>arrivers need one more tie than leavers</b>. <b>Split-year treatment</b> applies in the year you move in or out.</p>
+<h3>Types of domicile</h3>
+<ul><li><b>Origin</b>: at birth, usually from the father (the mother if unmarried or the father has died).</li>
+<li><b>Choice</b>: moving somewhere intending to stay permanently (voting, business, citizenship).</li>
+<li><b>Dependency</b>: children under 16 follow a parent. Women married before <b>1 January 1974</b> took their husband's domicile.</li>
+<li><b>Deemed</b>: UK resident <b>15 of the last 20</b> years. Lost after 3 years away.</li></ul>
+<h3>Tax effect</h3>
+<p>UK resident and domiciled: taxed on <b>worldwide</b> income and gains (the <b>arising basis</b>).</p>
+<p><b>Remittance basis (before 6 April 2025).</b> Non-doms paid UK tax only on foreign income brought into the UK, but lost the PA and the CGT exemption. <b>Remittance basis charge £30,000</b> (resident 7 of the last 9 years) or <b>£60,000</b> (12 of the last 14). Under <b>£2,000</b> unremitted: automatic, no charge, allowances kept.</p>
+<p><b>Temporary repatriation facility.</b> Pre-April 2025 foreign income and gains can be remitted at <b>12%</b> (2025-26 and 2026-27) and <b>15%</b> (2027-28).</p>
+<h3>New residence-based system from 6 April 2025</h3>
+<ul><li><b>Long-term resident</b> = UK resident 10 of the last 20 tax years. Worldwide assets then come into IHT, and this stays for <b>3 to 10 years</b> after leaving.</li>
+<li>New arrivals: <b>100% relief</b> on foreign income and gains for the <b>first 4 years</b>, if not UK resident in the previous <b>10 years</b>.</li></ul>
+<div class="worked"><b class="lab">Worked example</b>Amrita, estate £500,000. If she is a long-term resident, the whole estate is in: (£500,000 − £325,000 NRB) = £175,000 × 40% = <b>£70,000</b>. If not, and £300,000 is abroad, only £200,000 of UK assets count, which is inside the NRB: <b>nil</b>.</div>
+<h3>Double tax treaties and withholding tax</h3>
+<ul><li>Tax is usually charged where income is earned, gains are realised or property sits. <b>Double taxation relief (DTR)</b> stops double tax and needs a <b>double taxation agreement (DTA)</b>.</li>
+<li><b>Withholding tax</b> is deducted at source on income paid overseas, <b>0% to 40%</b>. It depends on the investor's <b>residence</b>, the <b>product</b> (dividend vs interest vs royalty), the <b>regime</b> (relief at source or reclaim) and the <b>beneficiary</b> (nominee vs true owner).</li>
+<li><b>US Qualified Intermediaries</b>: non-US firms holding US assets document the owners. As a QI, only <b>US persons are reported individually</b>; non-US persons are reported in aggregate. The US tax year is the calendar year.</li></ul>`,
+traps:["You can have dual residence or nationality, but <b>never dual domicile</b>.","Tests run in order: <b>automatic overseas, automatic UK, then sufficient ties</b>.","183 days = automatically resident. Under 16 days (was resident) or under 46 days (wasn't) = automatically non-resident.","<b>Arrivers need one more tie than leavers</b>.","Deemed domicile = <b>15 of 20</b> years; long-term resident (new IHT test) = <b>10 of 20</b>. Don't swap them.","RBC £30,000 at 7 of 9 years, £60,000 at 12 of 14. Under £2,000 unremitted needs no claim and keeps allowances.","New arrivals get 4 years of 100% FIG relief only if non-resident for the previous <b>10</b> years.","As a QI, only <b>US persons</b> are reported individually."]},
+
+{id:"C4-8", title:"Stamp Duty and SDRT", blurb:"Paper vs electronic share purchases, the 0.5% rate, rounding, what pays it, and the land taxes.",
+html:`<p>Stamp duty and stamp duty reserve tax (SDRT) are financial transaction taxes on buying securities of UK companies (or foreign companies with a UK share register). <b>The buyer pays.</b></p>
+<div class="tw"><table class="tbl"><tr><th></th><th>Stamp duty</th><th>SDRT</th></tr>
+<tr><td>Transfer</td><td><b>Paper</b> (stock transfer form)</td><td><b>Electronic</b> (CREST)</td></tr>
+<tr><td>Rate</td><td>0.5%</td><td>0.5%</td></tr>
+<tr><td>Rounding</td><td>Up to the nearest <b>£5</b></td><td>Up to the nearest <b>penny</b></td></tr>
+<tr><td>Small deals</td><td>Nil if £1,000 or less</td><td>Always charged</td></tr></table></div>
+<p><span class="formula">Stamp duty = 0.5% × consideration, rounded UP to the next £5</span> &nbsp; <span class="formula">SDRT = 0.5% × consideration, to the penny</span></p>
+<div class="worked"><b class="lab">Worked example</b>Paper purchase of £2,010: 0.5% = £10.05, rounded up to <b>£15</b>. The same deal through CREST: SDRT <b>£10.05</b>.</div>
+<p>CREST is run by <b>Euroclear UK &amp; Ireland</b>. Its main benefit is fast transfer of title.</p>
+<h3>What pays it?</h3>
+<div class="tw"><table class="tbl"><tr><th>Security</th><th>Stamp duty / SDRT?</th></tr>
+<tr><td>UK shares</td><td><b>Yes</b></td></tr>
+<tr><td>Share options</td><td><b>Yes</b></td></tr>
+<tr><td>Investment trusts, REITs, VCTs</td><td><b>Yes</b>, both on the fund's purchases and on the investor's purchase</td></tr>
+<tr><td>Unit trusts and OEICs</td><td><b>Not visibly</b> to the buyer. The fund pays SDRT on its underlying shares (in the spread or a dilution adjustment)</td></tr>
+<tr><td>Gilts</td><td><b>No</b></td></tr>
+<tr><td>Corporate bonds</td><td><b>No</b>, except <b>convertibles</b></td></tr>
+<tr><td>ETFs</td><td><b>No</b></td></tr>
+<tr><td>Physical property</td><td><b>No</b>, SDLT instead</td></tr>
+<tr><td>Shares in a property company</td><td>Yes</td></tr></table></div>
+<h3>Land taxes</h3>
+<p><b>SDLT</b> in England and Northern Ireland, <b>LTT</b> in Wales, <b>LBTT</b> in Scotland.</p>
+<ul><li><b>SDLT reliefs:</b> first-time buyers (never owned anywhere in the world), Crown employees abroad, charities, property investment funds (PAIFs).</li>
+<li><b>SDLT exemptions:</b> no money changes hands, left in a will, divorce or dissolution transfers, Shariah-compliant finance, social housing providers with public subsidy.</li></ul>`,
+traps:["Stamp duty rounds <b>up to the next £5</b>; SDRT is to the <b>penny</b>.","Paper deals of <b>£1,000 or less</b> pay no stamp duty; SDRT is always charged.","The <b>buyer</b> pays, not the seller.","Gilts, ETFs and ordinary corporate bonds pay none, but <b>convertibles</b> do.","Investment trusts, REITs and VCTs pay it; unit trusts and OEICs don't show it to the buyer.","SDLT = England and NI; <b>LTT = Wales</b>; <b>LBTT = Scotland</b>.","A first-time buyer must never have owned property <b>anywhere in the world</b>."]},
+
+{id:"C4-9", title:"VAT", blurb:"Who charges it, registration at £90,000, and the difference between zero-rated and exempt.",
+html:`<p>VAT is charged by <b>VAT-registered</b> businesses. Registered businesses <b>reclaim</b> the VAT they pay on their own purchases (input VAT); unregistered businesses can't. Exports are <b>zero-rated</b>.</p>
+<p>A business must <b>register</b> when turnover in the last 12 months <b>exceeds £90,000</b>, or is expected to soon. Voluntary registration is allowed.</p>
+<div class="tw"><table class="tbl"><tr><th>Category</th><th>Taxable supply?</th><th>Reclaim input VAT?</th><th>Examples</th></tr>
+<tr><td>Standard 20% / reduced 5%</td><td>Yes</td><td>Yes</td><td>Most goods</td></tr>
+<tr><td><b>Zero-rated 0%</b></td><td><b>Yes</b></td><td><b>Yes</b></td><td>Exports</td></tr>
+<tr><td><b>Exempt</b></td><td><b>No</b></td><td><b>No</b></td><td>Insurance, credit, education, doctors and dentists, commercial land</td></tr>
+<tr><td>Outside the scope</td><td>No</td><td>n/a</td><td>Hobby sales, statutory fees (MOT)</td></tr></table></div>
+<p><span class="formula">VAT on a net price = Net × 20%</span> &nbsp; <span class="formula">VAT inside a gross price = Gross × 20/120 (= Gross ÷ 6)</span></p>
+<div class="worked"><b class="lab">Worked example</b>A £600 item including 20% VAT: VAT = 600 × 20/120 = <b>£100</b>, net £500. Taking 20% of £600 (£120) is the classic mistake.</div>`,
+traps:["Zero-rated and exempt both charge no VAT, but only <b>zero-rated</b> lets the business reclaim input VAT.","Only sellers of purely zero-rated supplies can ask to be <b>excused registration</b>.","Registration is based on turnover over the <b>last 12 months</b> exceeding <b>£90,000</b> (or expected to).","Insurance, credit, education and doctors are <b>exempt</b>; exports are <b>zero-rated</b>.","To find the VAT inside a VAT-inclusive price, use 20/120, not 20%."]},
+
+{id:"C4-10", title:"Corporation Tax", blurb:"Who pays, the 19% and 25% rates, funds at 20%, reliefs, franked income and the 15% global minimum.",
+html:`<p>Corporation tax is paid by <b>limited companies</b> on their profits, not by sole traders. The accounting period is <b>at most 12 months</b>; a longer period needs two returns.</p>
+<div class="tw"><table class="tbl"><tr><th>Profits</th><th>Rate</th></tr>
+<tr><td>£50,000 or less</td><td><b>19%</b> small profits rate</td></tr>
+<tr><td>£50,000 to £250,000</td><td>25% less <b>marginal relief</b></td></tr>
+<tr><td>Over £250,000</td><td><b>25%</b> main rate</td></tr>
+<tr><td>Unit trusts and OEICs</td><td><b>20%</b></td></tr>
+<tr><td>Oil and gas ring-fence</td><td>19% / <b>30%</b></td></tr></table></div>
+<div class="worked"><b class="lab">Worked example</b>Profits of £40,000: 19% = <b>£7,600</b>. Profits of £400,000: 25% = <b>£100,000</b>. In between, marginal relief applies (the exam won't ask for that sum).</div>
+<ul><li><b>Reliefs:</b> capital allowances (plant, buildings, R&amp;D), R&amp;D relief, creative industries relief, <b>Patent Box</b>.</li>
+<li><b>Franked income</b> = dividends one company receives from another. Already taxed, so <b>no further tax</b>.</li>
+<li><b>International:</b> the OECD <b>15% global minimum</b> rate for multinationals. Zero-rate jurisdictions include Bermuda, the Cayman Islands, Guernsey and Jersey. Digital services taxes have no unified approach.</li></ul>
+<p class="muted" style="font-size:13px">Textbook note: the corporation tax table is labelled 2024-25, but the rates are unchanged.</p>`,
+traps:["Sole traders pay <b>income tax</b>, not corporation tax.","19% up to £50,000; 25% over £250,000; marginal relief in between.","Unit trusts and OEICs pay <b>20%</b>, not 19% or 25%.","Franked income (dividends from another company) is <b>not taxed again</b>.","An accounting period can't exceed <b>12 months</b>.","OECD global minimum = <b>15%</b>."]},
+
+{id:"C4-11", title:"Tax Compliance", blurb:"Evasion vs avoidance vs mitigation, POCA, data protection, and FATCA, CRS and MDR.",
+html:`<div class="tw"><table class="tbl"><tr><th>Term</th><th>Legal?</th><th>Meaning</th></tr>
+<tr><td><b>Evasion</b></td><td><b>Illegal</b></td><td>Not disclosing, breaking the rules</td></tr>
+<tr><td>Avoidance</td><td>Legal</td><td>Using loopholes (havens, pensions, ISAs). HMRC may challenge aggressive schemes</td></tr>
+<tr><td>Mitigation</td><td>Legal</td><td>Structuring sensibly and using allowances</td></tr></table></div>
+<p><b>POCA 2002</b> (Proceeds of Crime Act): it is a criminal offence not to report suspected proceeds of crime, including tax evasion. Staff report to the <b>MLRO</b>, who reports to the <b>NCA</b>.</p>
+<p><b>Data protection:</b> the <b>DPA 2018 plus UK GDPR</b> (from 2021). EU GDPR applies from 2018 and also covers firms serving EU residents.</p>
+<div class="tw"><table class="tbl"><tr><th></th><th>FATCA</th><th>CRS</th><th>MDR</th></tr>
+<tr><td>From</td><td>US law, 2014</td><td>OECD, 2014 (G8/G20)</td><td></td></tr>
+<tr><td>Targets</td><td><b>US persons</b> abroad</td><td>All participating countries, <b>100+</b></td><td>Aggressive <b>cross-border</b> tax planning</td></tr>
+<tr><td>Threshold</td><td><b>$50,000</b></td><td><b>None</b></td><td>Meets a <b>hallmark</b></td></tr>
+<tr><td>Nickname</td><td></td><td><b>GATCA</b></td><td></td></tr></table></div>
+<p><b>FATCA penalties:</b> <b>$10,000</b>, up to <b>$50,000</b> more after an IRS notice, and <b>40%</b> on understated tax.</p>`,
+traps:["Only <b>evasion</b> is illegal. Avoidance is legal but HMRC may challenge aggressive schemes.","Report suspicions to the <b>MLRO</b>, who reports to the <b>NCA</b> (not HMRC or the FCA).","FATCA threshold <b>$50,000</b>; CRS has <b>no minimum</b>.","CRS is nicknamed <b>GATCA</b>.","MDR is triggered by meeting a <b>hallmark</b> of cross-border planning.","UK GDPR applies from <b>2021</b>; EU GDPR from 2018."]},
+
+{id:"C4-12", title:"Tax Planning Strategies", blurb:"Allowances, spouses, children, pensions, ISAs, deferral, life bonds, worked computations and the two case studies.",
+html:`<p><b>Key principle:</b> "the tax tail should not wag the investment dog". Suitability and the client's risk profile come first, and tax rules change, so a strategy can stop working.</p>
+<h3>Basic planning tools</h3>
+<ul><li><b>Use all allowances</b> every year: personal allowance, PSA, dividend allowance, CGT exemption.</li>
+<li><b>Spouses</b> are taxed separately. Joint assets are assumed to be owned 50/50 unless a <b>joint declaration</b> is made to HMRC (not for close company shares). Move income-producing assets to the lower-rate spouse.</li>
+<li><b>Children:</b> income from parental gifts is taxed on the parent if over £100 (£200 from both parents). <b>Grandparents' gifts are fine.</b> A child can be employed in the family business.</li>
+<li><b>Pensions:</b> tax relief on contributions, but the money is locked until retirement age.</li>
+<li><b>ISAs:</b> no income tax or CGT, and access at any time.</li>
+<li><b>Tax deferral:</b> a cash-flow benefit, and tax may be paid at a lower rate later (e.g. in retirement). Collectives shelter internal gains.</li>
+<li><b>Life assurance bonds:</b> withdraw <b>5% a year</b> of the original investment as a return of capital, not taxed at the time. It is <b>cumulative</b>: miss 3 years and you can take 15%.</li></ul>
+<p><span class="formula">Tax-deferred withdrawal available = 5% × original investment × policy years − amounts already taken</span></p>
+<p><b>Criteria for choosing a strategy:</b> the client's objective (income or growth), allowances already used, wrapper conditions (e.g. <b>VCT 5-year holding</b>), pending budget changes, future changes in circumstances (e.g. needing cash for school fees), the need for specialists, and extra tax return reporting.</p>
+<h3>Worked computations</h3>
+<div class="worked"><b class="lab">Income tax, monthly</b>£5,000 a month. PA = 12,570 ÷ 12 = £1,047.50, so taxable = £3,952.50. Basic band = 37,700 ÷ 12 = £3,141.67 × 20% = £628.33. The rest, £810.83 × 40% = £324.33. <b>Tax £952.66, net £4,047.34.</b> Trick: divide the annual allowance and bands by 12.</div>
+<div class="worked"><b class="lab">Marriage allowance</b>Jemima earns £30,000. Before: £17,430 × 20% = £3,486. After Caroline transfers £1,260: £16,170 × 20% = £3,234. <b>Saving £252.</b></div>
+<div class="worked"><b class="lab">CGT</b>Basic-rate taxpayer sells for £120,000, cost £100,000. Gain £20,000 − £3,000 = £17,000 × 18% = <b>£3,060</b>.</div>
+<div class="worked"><b class="lab">IHT gifting (John)</b>No gifts last year, so this year's £3,000 plus last year's carried-forward £3,000 = £6,000: £3,000 each to 2 children. The annual exemption is <b>per giver, not per recipient</b>. 6 grandchildren × £250 = £1,500. The estate falls by £7,500 to £267,500. A £200,000 discretionary trust is a <b>CLT</b>, but inside his £325,000 NRB, so <b>no immediate tax</b>.</div>
+<div class="worked"><b class="lab">Couple's NRBs</b>Joseph and Wendy: estate £600,000 vs two NRBs of £650,000. <b>No IHT</b>, £50,000 to spare.</div>
+<h3>Case studies</h3>
+<ul><li><b>Michael and Sarah</b> (both higher rate, saving £75,000 for university, want control): invest in their <b>own names</b>, aim for <b>growth not income</b> (the CGT rate beats 40% income tax), fill both <b>ISAs</b>, put the rest in collectives in <b>joint names</b> to use both CGT exemptions, then <b>Bed and ISA</b> each April.</li>
+<li><b>Carmel</b> (self-employed, £70,000 to invest): pay into a <b>SIPP</b>. Relief on up to 100% of earnings (minimum £3,600). Going above the <b>£60,000 annual allowance</b> is fine thanks to <b>3-year carry forward</b>.</li></ul>
+<h3>Textbook inconsistencies to watch</h3>
+<ul><li><b>CGT rates:</b> the Michael and Sarah case says 20%. Current rates are <b>18% / 24%</b>.</li>
+<li><b>Trust BADR:</b> section 5.1.2 says 18%. Individuals pay <b>14%</b> for 2025-26, 18% from April 2026.</li>
+<li><b>LEL:</b> the table says <b>£125 pw</b>, a footnote says £123.</li>
+<li><b>Transfers into trusts:</b> one line calls them PETs. Remember <b>bare trust = PET, discretionary/relevant property trust = CLT</b>.</li>
+<li><b>Corporation tax table</b> is labelled 2024-25, but the rates are unchanged.</li></ul>`,
+traps:["\"The tax tail should not wag the investment dog\": suitability comes first.","Joint assets are 50/50 unless a <b>joint declaration</b> is made (not available for close company shares).","Parental gifts: income over <b>£100</b> (£200 both parents) is taxed on the parent. <b>Grandparents' gifts are fine.</b>","Life bond 5% is of the <b>original</b> investment and is <b>cumulative</b>.","The IHT annual exemption is <b>per giver</b>, not per recipient.","VCTs need a <b>5-year</b> hold.","Carry forward of the pension annual allowance goes back <b>3 years</b>; relief is capped at 100% of earnings (min £3,600).","The Michael and Sarah case's 20% CGT is out of date: use <b>18% / 24%</b>."]}
+];
+
+const RDO_CARDS = [
+["dn1","C4-7","Automatically UK resident","183+ days in the UK in the tax year"],
+["dn2","C4-7","Automatically non-resident (1st and 2nd overseas tests)","Under 16 days if resident in 1+ of last 3 years; under 46 days if not"],
+["dn3","C4-7","3rd automatic overseas test","Full-time work abroad (35 hrs/wk), under 91 days in UK, under 31 working days"],
+["dn4","C4-7","Deemed domicile","UK resident 15 of the last 20 years; lost after 3 years away"],
+["dn5","C4-7","Remittance basis charge (pre April 2025)","£30,000 (7 of last 9 years) / £60,000 (12 of last 14); under £2,000 unremitted = automatic, no charge"],
+["dn6","C4-7","Temporary repatriation facility","12% in 2025-26 and 2026-27; 15% in 2027-28"],
+["dn7","C4-7","Long-term resident (IHT, from 6 April 2025)","10 of last 20 tax years; stays for 3 to 10 years after leaving"],
+["dn8","C4-7","New arrivals' FIG relief","100% for the first 4 years, if non-resident for the previous 10"],
+["dn9","C4-8","Stamp duty / SDRT rate","0.5%. Stamp duty rounded up to £5 (nil if £1,000 or less); SDRT to the penny"],
+["dn10","C4-9","VAT rates and registration","20% / 5% / 0%. Register when last-12-month turnover exceeds £90,000"],
+["dn11","C4-10","Corporation tax rates","19% up to £50,000; 25% over £250,000 (marginal relief between); 20% unit trusts/OEICs"],
+["dn12","C4-10","OECD global minimum tax","15% for multinationals"],
+["dn13","C4-11","FATCA threshold and penalties","$50,000. Penalties $10,000, up to $50,000 more after IRS notice, 40% on understated tax"],
+["dn14","C4-12","Life assurance bond withdrawals","5% a year of the original investment, cumulative (miss 3 years, take 15%)"],
+["dn15","C4-12","Pension annual allowance","£60,000, with 3 years' carry forward; relief up to 100% of earnings (min £3,600)"],
+["dp1","C4-7","Residence vs domicile","Residence = short term, where you live (can be dual). Domicile = permanent home (never dual)"],
+["dp2","C4-7","Domicile of origin vs choice vs dependency","Origin: at birth, usually from father. Choice: move intending to stay. Dependency: under-16s follow a parent"],
+["dp3","C4-7","Sufficient ties: arrivers vs leavers","Arrivers need one more tie than leavers"],
+["dp4","C4-7","Arising basis vs remittance basis","Arising: worldwide income and gains taxed. Remittance (pre April 2025): only foreign income brought into the UK"],
+["dp5","C4-8","Stamp duty vs SDRT","Stamp duty: paper, rounded up to £5, nil ≤ £1,000. SDRT: electronic (CREST), to the penny, always charged"],
+["dp6","C4-8","SDLT vs LTT vs LBTT","SDLT: England and NI. LTT: Wales. LBTT: Scotland"],
+["dp7","C4-9","Zero-rated vs exempt","Both charge no VAT. Zero-rated = taxable supply, can reclaim input VAT. Exempt = can't reclaim"],
+["dp8","C4-10","Franked income","Dividends one company receives from another: already taxed, no further corporation tax"],
+["dp9","C4-11","Evasion vs avoidance vs mitigation","Evasion illegal. Avoidance legal (loopholes, may be challenged). Mitigation legal (sensible use of allowances)"],
+["dp10","C4-11","FATCA vs CRS","FATCA: US law, US persons, $50,000 threshold. CRS (GATCA): OECD, 100+ countries, no minimum"],
+["dp11","C4-11","POCA reporting chain","Staff → MLRO → NCA"],
+["dp12","C4-12","Bare trust vs discretionary trust gift","Bare trust = PET. Discretionary (relevant property) trust = CLT"]
+].map(([id,topic,front,back])=>({id,topic,front,back,kind:id[1]==="n"?"Numbers":"Pairs"}));
+
+const RDO_QUESTIONS = [
+["dst1","C4-8","A paper share purchase costs £2,010. How much stamp duty is payable?",["£15","£10.05","£10","£0"],0,"0.5% × £2,010 = £10.05, rounded up to the next £5 = £15."],
+["dst2","C4-9","Exempt or zero-rated: which lets a business reclaim input VAT?",["Zero-rated","Exempt","Both","Neither"],0,"Zero-rated supplies are taxable supplies, so input VAT can be reclaimed. Exempt supplies can't."],
+["dst3","C4-11","What is the FATCA reporting threshold?",["$50,000","$10,000","No minimum","$250,000"],0,"FATCA reports at $50,000. CRS has no minimum; $10,000 is a FATCA penalty."],
+["dst4","C4-7","How many days in the UK make someone automatically UK resident?",["183 or more","91 or more","120 or more","46 or more"],0,"The 1st automatic UK test is 183+ days."],
+["dst5","C4-7","Deemed domicile applies after UK residence in:",["15 of the last 20 years","10 of the last 20 years","7 of the last 9 years","12 of the last 14 years"],0,"10 of 20 is the new long-term resident test; 7 of 9 and 12 of 14 were the remittance basis charge tests."],
+["dst6","C4-8","Which of these attracts stamp duty or SDRT?",["Shares in a UK investment trust","A gilt","An ETF","A non-convertible corporate bond"],0,"Investment trusts, REITs and VCTs pay it. Gilts, ETFs and ordinary corporate bonds don't."],
+["dst7","C4-10","What corporation tax rate do unit trusts and OEICs pay?",["20%","19%","25%","0%"],0,""],
+["dst8","C4-11","Which term describes an illegal act?",["Tax evasion","Tax avoidance","Tax mitigation","Tax deferral"],0,"Only evasion is illegal."],
+["dst9","C4-12","A life bond holder has taken nothing for 3 years. What can they now withdraw without an immediate tax charge?",["15% of the original investment","5% of the original investment","15% of the current value","5% of the current value"],0,"The 5% allowance is cumulative and based on the original investment."],
+["dst10","C4-9","At what turnover must a business register for VAT?",["Over £90,000 in the last 12 months","Over £85,000 in the last tax year","Over £100,000 in the last 12 months","Over £50,000 in the last 12 months"],0,""],
+["dx1","C4-8","An investor buys £8,423 of UK shares electronically through CREST. How much SDRT is payable?",["£42.12","£45.00","£42.11","£40.00"],0,"0.5% × £8,423 = £42.115, rounded up to the penny = £42.12. Rounding up to £5 (£45) applies only to paper stamp duty."],
+["dx2","C4-8","An investor buys £950 of UK shares using a stock transfer form. How much stamp duty is payable?",["£0","£5","£4.75","£10"],0,"Paper transfers of £1,000 or less pay no stamp duty."],
+["dx3","C4-8","An investor buys £12,345 of UK shares using a stock transfer form. How much stamp duty is payable?",["£65","£61.73","£60","£62"],0,"0.5% × £12,345 = £61.725, rounded up to the next £5 = £65."],
+["dx4","C4-9","A VAT-registered firm sells an item for £600 including 20% VAT. How much VAT does it account for?",["£100","£120","£500","£720"],0,"VAT = 600 × 20/120 = £100. Taking 20% of the gross price (£120) is the classic error."],
+["dx5","C4-10","A company has taxable profits of £40,000. What is its corporation tax?",["£7,600","£10,000","£8,000","£6,000"],0,"Profits of £50,000 or less pay the 19% small profits rate: £40,000 × 19% = £7,600."],
+["dx6","C4-10","A company has taxable profits of £400,000. What is its corporation tax?",["£100,000","£76,000","£80,000","£90,000"],0,"Over £250,000 pays the 25% main rate: £400,000 × 25% = £100,000."],
+["dx7","C4-12","An employee earns £5,000 a month. Using the monthly method, what is the income tax for the month?",["£952.66","£628.33","£790.50","£1,000.00"],0,"Taxable = 5,000 − 1,047.50 = 3,952.50. £3,141.67 × 20% = £628.33; £810.83 × 40% = £324.33. Total £952.66."],
+["dx8","C4-12","Jemima earns £30,000 and receives a marriage allowance transfer of £1,260 from Caroline. What is Jemima's income tax afterwards?",["£3,234","£3,486","£3,738","£3,000"],0,"(30,000 − 12,570 − 1,260) = £16,170 × 20% = £3,234. Before the transfer it was £3,486, a saving of £252."],
+["dx9","C4-12","£50,000 is invested in a life assurance bond. After 6 years the holder has taken £8,000. How much more can they withdraw now without an immediate tax charge?",["£7,000","£2,500","£15,000","£0"],0,"5% × £50,000 × 6 years = £15,000 cumulative, less £8,000 already taken = £7,000."],
+["dx10","C4-7","Amrita is a long-term UK resident and dies with a worldwide estate of £500,000. Ignoring other reliefs, what is the IHT?",["£70,000","£0","£200,000","£130,000"],0,"(£500,000 − £325,000) × 40% = £70,000. If she were not long-term resident with £300,000 abroad, only £200,000 counts, inside the NRB."],
+["dx11","C4-7","Someone not UK resident in any of the last 3 years spends 100 days in the UK this tax year. How many UK ties make them resident under the sufficient ties test?",["3","2","4","1"],0,"91-120 days: arrivers (not previously resident) need 3 ties; leavers need 2."],
+["dx12","C4-7","Under the old remittance basis, a non-dom resident in 12 of the last 14 years wanting to use it paid a charge of:",["£60,000","£30,000","£2,000","Nothing"],0,"£30,000 applied at 7 of the last 9 years; £60,000 at 12 of the last 14."],
+["dx13","C4-9","Which supply is exempt from VAT?",["Insurance","Exports","Children's clothing","MOT test fees"],0,"Exports are zero-rated; MOT fees are statutory fees outside the scope; insurance is exempt."],
+["dx14","C4-11","A bank employee suspects a client is evading tax. Under POCA 2002, they should report it to:",["The firm's MLRO","HMRC directly","The FCA","The client's accountant"],0,"Staff report to the MLRO, who decides whether to report to the NCA."],
+["dx15","C4-11","How does CRS differ from FATCA?",["CRS has no minimum reporting threshold","CRS only covers US persons","CRS applies only above $50,000","CRS is a US law"],0,"CRS (GATCA) is OECD-led, covers 100+ countries and has no threshold."],
+["dx16","C4-12","Michael and Sarah, both higher-rate taxpayers, are saving for university fees. Which approach fits the textbook case?",["Aim for growth, fill both ISAs and hold the rest jointly to use both CGT exemptions","Aim for high income in Michael's name","Put everything in a pension for the children","Buy a single VCT and sell after 2 years"],0,"Growth suits them because CGT rates beat 40% income tax; joint names use both annual exempt amounts; Bed and ISA each April."],
+["dx17","C4-7","A new UK arrival who has not been UK resident in the previous 10 years gets 100% relief on foreign income and gains for:",["The first 4 years","The first 10 years","The first 3 years","Life, as long as they are non-domiciled"],0,"The new regime from 6 April 2025 gives 4 years of FIG relief to people non-resident for the previous 10."],
+["dx18","C4-10","A company receives dividends from another UK company. How are they treated for corporation tax?",["Franked income, not taxed again","Taxed at 25%","Taxed at 19%","Taxed at 20%"],0,"Dividends between companies are franked income: already taxed, so no further corporation tax."]
+].map(([id,topic,q,options,a,why])=>({id,topic,q,options,a,why,kind:"mcq",src:id.startsWith("dst")?"Self-test":"Practice"}));
+
+const RDO_NUM = {
+  rdo_stamp:{label:"Stamp duty and SDRT",topic:"C4-8"}, rdo_vat:{label:"VAT",topic:"C4-9"},
+  rdo_ct:{label:"Corporation tax",topic:"C4-10"}, rdo_monthly:{label:"Monthly income tax",topic:"C4-12"},
+  rdo_marriage:{label:"Marriage allowance",topic:"C4-12"}, rdo_bond:{label:"Life bond 5% withdrawals",topic:"C4-12"},
+  rdo_aa:{label:"Pension annual allowance",topic:"C4-12"}
+};
+
 const SECTIONS = [
   {key:"cash",ch:"ch1",hash:"cash",nav:"Cash",eyebrow:"Chapter 1 · Section 1",title:"Cash and Cash Equivalents",topics:CASH_TOPICS,cards:CASH_CARDS,questions:CASH_QUESTIONS,nums:CASH_NUM},
   {key:"fi",ch:"ch1",hash:"fixed-income",nav:"Fixed Income",eyebrow:"Chapter 1 · Section 2",title:"Fixed Income Securities (Bonds)",topics:FI_TOPICS,cards:FI_CARDS,questions:FI_QUESTIONS,nums:FI_NUM},
@@ -2533,7 +3169,10 @@ const SECTIONS = [
   {key:"ca",ch:"ch2",hash:"company-analysis",nav:"Company Analysis",eyebrow:"Chapter 2 · Section 1",title:"Company Analysis",topics:CA_TOPICS,cards:CA_CARDS,questions:CA_QUESTIONS,nums:CA_NUM},
   {key:"tv",ch:"ch3",hash:"time-value",nav:"Time Value",eyebrow:"Chapter 3 · Section 1",title:"Time Value of Money",topics:TV_TOPICS,cards:TV_CARDS,questions:TV_QUESTIONS,nums:TV_NUM},
   {key:"rr",ch:"ch3",hash:"risk-return",nav:"Risk and Return",eyebrow:"Chapter 3 · Section 2",title:"Investment Risk and Return",topics:RR_TOPICS,cards:RR_CARDS,questions:RR_QUESTIONS,nums:RR_NUM},
-  {key:"it",ch:"ch3",hash:"investment-theory",nav:"Investment Theory",eyebrow:"Chapter 3 · Section 3",title:"Models of Investment Theory",topics:IT_TOPICS,cards:IT_CARDS,questions:IT_QUESTIONS,nums:IT_NUM}
+  {key:"it",ch:"ch3",hash:"investment-theory",nav:"Investment Theory",eyebrow:"Chapter 3 · Section 3",title:"Models of Investment Theory",topics:IT_TOPICS,cards:IT_CARDS,questions:IT_QUESTIONS,nums:IT_NUM},
+  {key:"inc",ch:"ch4",hash:"income-tax",nav:"Income Tax",eyebrow:"Chapter 4 · Section 1",title:"Income Tax and National Insurance",topics:INC_TOPICS,cards:INC_CARDS,questions:INC_QUESTIONS,nums:INC_NUM},
+  {key:"cgi",ch:"ch4",hash:"cgt-iht",nav:"CGT and IHT",eyebrow:"Chapter 4 · Section 2",title:"Capital Gains Tax and Inheritance Tax",topics:CGI_TOPICS,cards:CGI_CARDS,questions:CGI_QUESTIONS,nums:CGI_NUM},
+  {key:"rdo",ch:"ch4",hash:"residency-other-taxes",nav:"Residency and Other Taxes",eyebrow:"Chapter 4 · Section 3",title:"Residency, Other Taxes and Tax Planning",topics:RDO_TOPICS,cards:RDO_CARDS,questions:RDO_QUESTIONS,nums:RDO_NUM}
 ];
 // Chapters group sections. Add a chapter here, then give its sections ch:"<key>".
 const CHAPTERS = [
@@ -2545,7 +3184,8 @@ const CHAPTERS = [
     {key:"x2w", hash:"ch2-exam", nav:"Exam-style questions", title:"Exam-style questions", calc:false},
     {key:"x2n", hash:"ch2-exam-numbers", nav:"Exam-style: numbers", title:"Exam-style questions: numbers", calc:true}
   ]},
-  {key:"ch3", num:3, hash:"chapter-3", title:"Time Value, Risk & Return, Investment Theory", exams:[]}
+  {key:"ch3", num:3, hash:"chapter-3", title:"Time Value, Risk & Return, Investment Theory", exams:[]},
+  {key:"ch4", num:4, hash:"chapter-4", title:"Taxation of Investors and Investments", exams:[]}
 ];
 const EXAMPAGES = CHAPTERS.flatMap(c=>(c.exams||[]).map(x=>Object.assign(x,{ch:c.key})));
 for(const ch of CHAPTERS) ch.sections = SECTIONS.filter(s=>s.ch===ch.key);
@@ -3587,6 +4227,266 @@ function itCalcs(){return `<div class="stack"><h2>Calculators</h2><div class="ca
   ${cpanel("Multi-factor (APT)",fld("it-arf","Risk-free rate (%)",XREAL.gilt)+fld("it-b1","Beta 1",0.8)+fld("it-p1","Premium 1 (%)",2)+fld("it-b2","Beta 2",1.2)+fld("it-p2","Premium 2 (%)",1.5)+fld("it-b3","Beta 3",0)+fld("it-p3","Premium 3 (%)",0),"it-a-out")}
 </div></div>`}
 
+/* Chapter 4 income tax: 2025-26 figures from Duke's notes (England) */
+const INCT = {pa:12570, taper:100000, basic:37700, addl:125140, sr:5000, psa:[1000,500,0], da:500,
+  rates:[20,40,45], drates:[8.75,33.75,39.35]};
+const incPA = total => Math.max(0, INCT.pa - Math.max(0, total-INCT.taper)/2);
+// Tax non-savings (ns), savings (sv) and dividends (dv) in that order; returns totals and steps.
+function incTax(ns, sv=0, dv=0){
+  const total=ns+sv+dv, pa=incPA(total);
+  let paLeft=pa; const use=x=>{const u=Math.min(paLeft,x);paLeft-=u;return x-u};
+  const tns=use(ns), tsv=use(sv), tdv=use(dv), taxable=tns+tsv+tdv;
+  const band=taxable<=INCT.basic?0:taxable<=INCT.addl?1:2;
+  let pos=0; const steps=[];
+  const chunk=(amt,rates,label)=>{let tax=0;const lims=[INCT.basic,INCT.addl,Infinity];
+    for(let b=0;b<3&&amt>0;b++){const room=Math.max(0,lims[b]-pos);const a=Math.min(room,amt);if(a>0){const t=a*rates[b]/100;tax+=t;steps.push(`${label} ${gbp0(a)} × ${rates[b]}% = ${money(t)}`);pos+=a;amt-=a}}
+    return tax};
+  const nsTax=chunk(tns,INCT.rates,"Non-savings");
+  // Savings: starting rate band, then PSA, then band rates
+  const srBand=Math.max(0,INCT.sr-tns), srUsed=pos<INCT.basic?Math.min(tsv,srBand):0; pos+=srUsed;
+  const psa=INCT.psa[band], psaUsed=Math.min(tsv-srUsed,psa); pos+=psaUsed;
+  if(srUsed) steps.push(`Savings ${gbp0(srUsed)} in the starting rate band at 0%`);
+  if(psaUsed) steps.push(`Savings ${gbp0(psaUsed)} covered by the ${gbp0(psa)} PSA`);
+  const svTax=chunk(tsv-srUsed-psaUsed,INCT.rates,"Savings");
+  const daUsed=Math.min(tdv,INCT.da); pos+=daUsed; if(daUsed) steps.push(`Dividends ${gbp0(daUsed)} covered by the £500 DA`);
+  const dvTax=chunk(tdv-daUsed,INCT.drates,"Dividends");
+  return {pa,taxable,band,nsTax,svTax,dvTax,tax:nsTax+svTax+dvTax,steps,psa,srBand};
+}
+const incHead=()=>`<span class="muted">(2025-26 rates, England)</span>`;
+Object.assign(GEN,{
+  inc_salary(){
+    const ns=pick([R(14,49),R(50,99),R(100,124),R(126,180)])*1000+pick([0,250,500,750]);
+    const t=incTax(ns);
+    return {q:`An employee earns a salary of <b>${gbp0(ns)}</b> and has no other income ${incHead()}. What is their total income tax for the year?`,ans:t.tax,unit:"£",
+      work:`Personal allowance = ${gbp0(t.pa)}${ns>INCT.taper?` (${gbp0(ns)} is over £100,000, so the PA falls by ${gbp0(INCT.pa-t.pa)})`:""}. Taxable = ${gbp0(ns)} − ${gbp0(t.pa)} = ${gbp0(t.taxable)}. ${t.steps.join(". ")}. Total = <b>${money(t.tax)}</b>.`};
+  },
+  inc_pa(){
+    const inc=R(201,250)*500; const pa=incPA(inc);
+    return {q:`A client's adjusted net income is <b>${gbp0(inc)}</b> ${incHead()}. What is their personal allowance?`,ans:pa,unit:"£",
+      work:`Excess over £100,000 = ${gbp0(Math.max(0,inc-INCT.taper))}. The PA falls £1 for every £2, so by ${gbp0(INCT.pa-pa)}. PA = £12,570 − ${gbp0(INCT.pa-pa)} = <b>${gbp0(pa)}</b>.${pa===0?" It is gone completely at £125,140.":""}`};
+  },
+  inc_savings(){
+    const ns=pick([R(4,16)*1000,R(20,48)*1000,R(52,95)*1000,R(130,160)*1000]); const sv=R(2,60)*100;
+    const t=incTax(ns,sv); const who=["basic","higher","additional"][t.band];
+    return {q:`A client has a salary of <b>${gbp0(ns)}</b> and receives <b>${gbp0(sv)}</b> of bank interest ${incHead()}. How much income tax is due on the <b>interest</b>?`,ans:t.svTax,unit:"£",
+      work:`PA ${gbp0(t.pa)}${ns<INCT.pa?`, so ${gbp0(Math.min(sv,INCT.pa-ns))} of PA is left to cover interest`:""}. Taxable salary = ${gbp0(Math.max(0,ns-t.pa))}, so the starting rate band is £5,000 − ${gbp0(Math.min(5000,Math.max(0,ns-t.pa)))} = ${gbp0(t.srBand)}. They are a ${who} rate taxpayer, so the PSA is ${gbp0(t.psa)}. ${t.steps.filter(x=>x.startsWith("Savings")).join(". ")||"No tax on the interest"}. Tax on interest = <b>${money(t.svTax)}</b>.`};
+  },
+  inc_div(){
+    const ns=pick([R(13,45)*1000,R(52,95)*1000,R(130,160)*1000]); const dv=R(6,120)*100;
+    const t=incTax(ns,0,dv);
+    return {q:`A client has a salary of <b>${gbp0(ns)}</b> and receives <b>${gbp0(dv)}</b> of UK dividends ${incHead()}. How much income tax is due on the <b>dividends</b>?`,ans:t.dvTax,unit:"£",
+      work:`Dividends sit on top of the salary. Taxable salary = ${gbp0(Math.max(0,ns-t.pa))}. ${t.steps.filter(x=>x.startsWith("Dividends")).join(". ")}. Tax on dividends = <b>${money(t.dvTax)}</b>.`};
+  },
+  inc_trust(){
+    const div=Math.random()<0.4; const amt=pick([R(2,4)*100+pick([0,50]),R(6,90)*100]);
+    const r=div?39.35:45, ans=amt>500?amt*r/100:0;
+    return {q:`A discretionary trust receives <b>${gbp0(amt)}</b> of ${div?"dividends":"interest"} and no other income ${incHead()}. How much income tax do the trustees pay?`,ans,unit:"£",
+      work:amt>500?`Over £500, so the <b>whole</b> amount is taxed at ${r}%: ${gbp0(amt)} × ${r}% = <b>${money(ans)}</b>. Trap: don't deduct the first £500.`:`Trust income of £500 or less is not taxed, so <b>£0</b>.`};
+  },
+  inc_pid(){
+    const g=R(5,80)*100; const k=pick([["basic",0],["higher",20],["additional",25]]); const askNet=Math.random()<0.35;
+    const ans=askNet?g*0.8:g*k[1]/100;
+    return {q:askNet?`A REIT pays a property income distribution (PID) of <b>${gbp0(g)}</b> gross. How much cash does the investor receive after tax withheld at source?`
+      :`A <b>${k[0]} rate</b> taxpayer receives a REIT PID of <b>${gbp0(g)}</b> gross ${incHead()}. How much <b>more</b> tax do they pay after the tax withheld at source?`,ans,unit:"£",
+      work:askNet?`20% is withheld: ${gbp0(g)} × 80% = <b>${money(ans)}</b>.`:`PIDs are taxed as rental income at 20/40/45, with 20% already withheld. A ${k[0]} rate taxpayer pays an extra ${k[1]}%: ${gbp0(g)} × ${k[1]}% = <b>${money(ans)}</b>. The dividend allowance does not apply.`};
+  },
+  inc_nic(){
+    const emp=Math.random()<0.3; const w=pick([R(150,240),R(250,960),R(970,2500)]);
+    let ans,work;
+    if(emp){ans=Math.max(0,w-175)*0.15;work=`Employer pays 15% above the secondary threshold of £175 a week: (${w} − 175) × 15% = <b>${money(ans)}</b>.`}
+    else{const a=Math.max(0,Math.min(w,967)-242)*0.08, b=Math.max(0,w-967)*0.02;ans=a+b;
+      work=w<=242?`Earnings are at or below the primary threshold of £242, so <b>£0</b>${w>=125?" (but they are credited, as earnings are above the £125 LEL)":""}.`
+        :`(${Math.min(w,967)} − 242) × 8% = ${money(a)}${b?` + (${w} − 967) × 2% = ${money(b)}`:""}. Total = <b>${money(ans)}</b>.`}
+    return {q:`An employee earns <b>£${w} a week</b> ${incHead()}. What ${emp?"<b>employer</b> (secondary) Class 1 NIC":"<b>employee</b> (primary) Class 1 NIC"} is due for the week?`,ans,unit:"£",tol:0.015,work};
+  },
+  inc_class4(){
+    const p=pick([R(10,50),R(51,150)])*1000+pick([0,250,500]);
+    const a=Math.max(0,Math.min(p,50270)-12570)*0.06, b=Math.max(0,p-50270)*0.02, ans=a+b;
+    return {q:`A self-employed client makes profits of <b>${gbp0(p)}</b> ${incHead()}. What Class 4 NICs are due?`,ans,unit:"£",tol:0.015,
+      work:p<=12570?`Profits are below £12,570, so <b>£0</b>.`:`(${gbp0(Math.min(p,50270))} − £12,570) × 6% = ${money(a)}${b?` + (${gbp0(p)} − £50,270) × 2% = ${money(b)}`:""}. Total = <b>${money(ans)}</b>. Class 4 gives no benefit entitlement.`};
+  }
+});
+
+function incRatebook(){return `<div class="panel stack" style="gap:10px">
+      <div style="display:grid;gap:2px"><span class="eyebrow">2025-26 figures · from your notes</span><span class="muted" style="font-size:13px">England rates. Scotland can differ. Incomes in the problems are made up.</span></div>
+      <div class="ratebook">
+        <div class="rate"><span>Personal allowance <span class="muted">· −£1 per £2 over £100k</span></span><span class="num">£12,570</span></div>
+        <div class="rate"><span>Basic / higher / additional</span><span class="num">20% / 40% / 45%</span></div>
+        <div class="rate"><span>Band limits <span class="muted">· taxable income</span></span><span class="num">£37,700 / £125,140</span></div>
+        <div class="rate"><span>Starting rate for savings</span><span class="num">£5,000 at 0%</span></div>
+        <div class="rate"><span>PSA <span class="muted">· basic / higher / additional</span></span><span class="num">£1,000 / £500 / £0</span></div>
+        <div class="rate"><span>Dividend allowance</span><span class="num">£500</span></div>
+        <div class="rate"><span>Dividend rates</span><span class="num">8.75 / 33.75 / 39.35%</span></div>
+        <div class="rate"><span>Discretionary trust <span class="muted">· whole amount if over £500</span></span><span class="num">45% / 39.35%</span></div>
+        <div class="rate"><span>Class 1 employee <span class="muted">· PT £242, UEL £967 pw</span></span><span class="num">8% / 2%</span></div>
+        <div class="rate"><span>Class 1 employer <span class="muted">· above £175 pw</span></span><span class="num">15%</span></div>
+        <div class="rate"><span>Class 4 <span class="muted">· £12,570 to £50,270</span></span><span class="num">6% / 2%</span></div>
+      </div>
+    </div>`}
+function incCalcs(){return `<div class="stack"><h2>Calculators</h2><div class="calcs">
+  ${cpanel("Income tax (2025-26)",fld("inc-ns","Salary and other non-savings (£)",51350,100)+fld("inc-sv","Interest (£)",500,50)+fld("inc-dv","Dividends (£)",250,50),"inc-t-out")}
+  ${cpanel("Class 1 NICs (weekly)",fld("inc-w","Weekly earnings (£)",1000,1),"inc-n-out")}
+  ${cpanel("Class 4 and trust tax",fld("inc-p","Self-employed profits (£)",60000,500)+fld("inc-ti","Discretionary trust interest (£)",600,50)+fld("inc-td","Discretionary trust dividends (£)",0,50),"inc-c-out")}
+</div></div>`}
+
+/* CGT and IHT number practice: illustrative figures, 2025-26 rules from Duke's notes */
+const CGI_AEA=3000, CGI_NRB=325000, CGI_RNRB=175000;
+const cgiTaper=y=>y<3?0:y<4?20:y<5?40:y<6?60:y<7?80:100;
+const cgiYrs=y=>Number.isInteger(y)?`${y} years`:`${Math.floor(y)}½ years`;
+const cgiRnrb=(estate,max)=>Math.max(0,max-Math.max(0,estate-2000000)/2);
+Object.assign(GEN,{
+  cgi_cgt(){
+    const G=R(8,120)*500, higher=Math.random()<0.45, B=higher?0:R(0,30)*1000;
+    const tx=Math.max(0,G-CGI_AEA), lo=Math.min(tx,B), hi=tx-lo, ans=lo*0.18+hi*0.24;
+    const who=higher?"a <b>higher rate</b> taxpayer":`an individual with <b>${gbp0(B)}</b> of basic rate band left`;
+    return {q:`Using 2025-26 rules, ${who} makes a chargeable gain of <b>${gbp0(G)}</b> on shares and has no losses. What CGT is due?`,ans,unit:"£",
+      work:`Taxable gain = ${gbp0(G)} − ${gbp0(CGI_AEA)} AEA = ${gbp0(tx)}. ${lo?`${gbp0(lo)} × 18% = ${money(lo*0.18)}${hi?" plus ":". "}`:""}${hi?`${gbp0(hi)} × 24% = ${money(hi*0.24)}. `:""}Total <b>${money(ans)}</b>.${!higher&&hi?" The gain is added on top of income, so only the unused basic band gets 18%.":""}`};
+  },
+  cgi_gain(){
+    const cost=R(4,80)*1000, buy=R(1,20)*50, enh=Math.random()<0.6?R(1,20)*250:0, sell=R(2,30)*50, P=cost+buy+enh+sell+R(2,80)*500, appeal=Math.random()<0.35?R(2,10)*100:0;
+    const ans=P-sell-cost-buy-enh;
+    return {q:`Using 2025-26 rules, an asset is sold for <b>${gbp0(P)}</b>. Selling costs (agent and legal) were <b>${gbp0(sell)}</b>. It cost <b>${gbp0(cost)}</b> plus <b>${gbp0(buy)}</b> of buying costs.${enh?` <b>${gbp0(enh)}</b> was spent improving it (enhancement).`:""}${appeal?` The owner also paid <b>${gbp0(appeal)}</b> appealing HMRC's valuation.`:""} What is the chargeable gain before the annual exempt amount?`,ans,unit:"£",
+      work:`Net proceeds = ${gbp0(P)} − ${gbp0(sell)} = ${gbp0(P-sell)}. Allowable costs = ${gbp0(cost)} + ${gbp0(buy)}${enh?" + "+gbp0(enh)+" enhancement":""} = ${gbp0(cost+buy+enh)}. Gain = <b>${gbp0(ans)}</b>.${appeal?" The cost of appealing HMRC's valuation is <b>not</b> allowable.":""}`};
+  },
+  cgi_loss(){
+    if(Math.random()<0.5){
+      const g=R(8,60)*500, L=R(2,60)*500, use=Math.max(0,Math.min(L,g-CGI_AEA)), ans=L-use;
+      return {q:`Using 2025-26 rules, an individual makes a gain of <b>${gbp0(g)}</b> this year and has <b>${gbp0(L)}</b> of capital losses brought forward from earlier years. How much loss is carried forward to next year?`,ans,unit:"£",
+        work:`Brought-forward losses go <b>after</b> the AEA, and only down to nil. ${gbp0(g)} − ${gbp0(CGI_AEA)} = ${gbp0(Math.max(0,g-CGI_AEA))}, so ${gbp0(use)} of losses is used. Carried forward = ${gbp0(L)} − ${gbp0(use)} = <b>${gbp0(ans)}</b>.`};
+    }
+    const g=R(10,80)*500, l=R(2,Math.floor(g/500)-1)*500, net=g-l, ans=Math.max(0,net-CGI_AEA);
+    return {q:`Using 2025-26 rules, an individual makes gains of <b>${gbp0(g)}</b> and losses of <b>${gbp0(l)}</b> in the same tax year. What is the taxable gain after the annual exempt amount?`,ans,unit:"£",
+      work:`Same-year losses come off <b>first</b>, in full: ${gbp0(g)} − ${gbp0(l)} = ${gbp0(net)}. Then the AEA: ${gbp0(net)} − ${gbp0(CGI_AEA)} = <b>${gbp0(ans)}</b>.${net<CGI_AEA?` ${gbp0(CGI_AEA-net)} of the AEA is wasted.`:""}`};
+  },
+  cgi_trust(){
+    const pr=Math.random()<0.25, aea=pr?3000:1500, G=R(4,80)*500, tx=Math.max(0,G-aea), ans=tx*0.24;
+    return {q:`Using 2025-26 rules, ${pr?"the <b>personal representatives</b> of an estate make":"the trustees of a <b>discretionary trust</b> make"} a gain of <b>${gbp0(G)}</b>. What CGT is due?`,ans,unit:"£",
+      work:`Exemption ${gbp0(aea)} (${pr?"personal reps get £3,000":"most trusts get £1,500, not £3,000"}). Taxable = ${gbp0(G)} − ${gbp0(aea)} = ${gbp0(tx)}. × 24% = <b>${money(ans)}</b>.`};
+  },
+  cgi_estate(){
+    const widow=Math.random()<0.3, E=widow?R(140,300)*5000:R(70,500)*5000, home=!widow&&Math.random()<0.65, H=home?Math.min(E,R(15,90)*10000):0;
+    const charity=Math.random()<0.2, nrb=widow?650000:CGI_NRB, rn=home?Math.min(H,cgiRnrb(E,CGI_RNRB)):0;
+    const ch=Math.max(0,E-nrb-rn), rate=charity?36:40, ans=ch*rate/100;
+    return {q:`Using 2025-26 rules, ${widow?"a widow whose late husband left everything to her (so his whole NRB transfers)":"a single person"} dies with a net estate of <b>${gbp0(E)}</b>. There were no lifetime gifts.${home?` Their home, worth <b>${gbp0(H)}</b>, passes to their children.`:" No home passes to direct descendants."}${charity?" The will leaves 10% of the net estate to charity, so the <b>36%</b> rate applies (the figure above is after that gift).":""} What IHT is due?`,ans,unit:"£",
+      work:`NRB = ${gbp0(nrb)}.${home?` RNRB = £175,000${E>2000000?` − (${gbp0(E)} − £2,000,000) ÷ 2 = ${gbp0(cgiRnrb(E,CGI_RNRB))}`:""}${H<cgiRnrb(E,CGI_RNRB)?`, capped at the home's value ${gbp0(H)}`:""}, so ${gbp0(rn)}.`:" No RNRB, because no home goes to direct descendants."} Chargeable = ${gbp0(E)} − ${gbp0(nrb)}${rn?" − "+gbp0(rn):""} = ${gbp0(ch)}. × ${rate}% = <b>${money(ans)}</b>.`};
+  },
+  cgi_taper(){
+    const y=pick([1,2,2.5,3.5,4.5,5.5,6.5]), clt=Math.random()<0.3?R(5,30)*10000:0, P=R(70,160)*5000;
+    const avail=Math.max(0,CGI_NRB-clt), over=Math.max(0,P-avail), rel=cgiTaper(y), full=over*0.4, ans=full*(1-rel/100);
+    return {q:`Using 2025-26 rules, a PET of <b>${gbp0(P)}</b> (after all exemptions) was made <b>${cgiYrs(y)}</b> before the donor died.${clt?` Two years before the PET, the donor had made a CLT of <b>${gbp0(clt)}</b> (after exemptions).`:" There were no other lifetime gifts."} Ignoring the death estate, what IHT is due on the PET?`,ans,unit:"£",
+      work:`${clt?`The earlier CLT uses ${gbp0(clt)} of the NRB first, leaving ${gbp0(avail)}. `:""}Excess = ${gbp0(P)} − ${gbp0(avail)} = ${gbp0(over)}. × 40% = ${money(full)}. ${cgiYrs(y)} before death gives <b>${rel}%</b> taper relief (effective rate ${40*(1-rel/100)}%), so tax = <b>${money(ans)}</b>.${rel?" Taper cuts the tax, not the gift.":""}`};
+  },
+  cgi_clt(){
+    const G=R(66,140)*5000, ae=pick([0,1,2]), prev=Math.random()<0.4?R(5,25)*10000:0;
+    const net=G-ae*3000, avail=Math.max(0,CGI_NRB-prev), ans=Math.max(0,net-avail)*0.2;
+    return {q:`Using 2025-26 rules, a donor puts <b>${gbp0(G)}</b> into a discretionary trust and the trustees pay the tax. ${ae===2?"This year's and last year's annual exemptions are unused.":ae===1?"Only this year's annual exemption is unused.":"Both annual exemptions have already been used."}${prev?` The donor made another CLT of <b>${gbp0(prev)}</b> (after exemptions) 3 years ago.`:" There were no earlier gifts."} What lifetime IHT is due?`,ans,unit:"£",
+      work:`Gift after annual exemptions = ${ae?`${gbp0(G)} − ${gbp0(ae*3000)} = `:""}${gbp0(net)}. NRB available = ${prev?`£325,000 − ${gbp0(prev)} earlier CLT = `:""}${gbp0(avail)}. Tax = (${gbp0(net)} − ${gbp0(avail)}) × 20% = <b>${money(ans)}</b>. A CLT is taxed at the lifetime rate of 20%, not 40%.`};
+  },
+  cgi_nrb(){
+    const U=R(0,64)*5000, pct=U/CGI_NRB, ans=CGI_NRB+CGI_NRB*(1-pct);
+    return {q:`On the first spouse's death, <b>${gbp0(U)}</b> went to the children and everything else to the surviving spouse. Using 2025-26 rules, what nil rate band is available on the survivor's death?`,ans,unit:"£",
+      work:`${gbp0(U)} ÷ £325,000 = ${(pct*100).toFixed(2)}% of the NRB used, so ${(100-pct*100).toFixed(2)}% (${gbp0(CGI_NRB*(1-pct))}) transfers. Survivor's NRB = £325,000 + ${gbp0(CGI_NRB*(1-pct))} = <b>${gbp0(ans)}</b>. Gifts to the spouse are exempt, so they don't use the NRB.`};
+  }
+});
+
+function cgiRatebook(){return `<div class="panel stack" style="gap:10px">
+      <div style="display:grid;gap:2px"><span class="eyebrow">CGT and IHT · 2025-26 figures from your notes</span><span class="muted" style="font-size:13px">The problems use made-up gains and estates with these rules.</span></div>
+      <div class="ratebook">
+        <div class="rate"><span>CGT annual exempt amount <span class="muted">· most trusts</span></span><span class="num">£3,000 / £1,500</span></div>
+        <div class="rate"><span>CGT rates <span class="muted">· basic / higher and trusts</span></span><span class="num">18% / 24%</span></div>
+        <div class="rate"><span>BADR <span class="muted">· from 6 April 2026</span></span><span class="num">14% / 18%</span></div>
+        <div class="rate"><span>Chattels exempt up to</span><span class="num">£6,000</span></div>
+        <div class="rate"><span>IHT nil rate band</span><span class="num">£325,000</span></div>
+        <div class="rate"><span>Residence NRB <span class="muted">· taper over £2m</span></span><span class="num">£175,000</span></div>
+        <div class="rate"><span>IHT rates <span class="muted">· CLT / death / charity</span></span><span class="num">20% / 40% / 36%</span></div>
+        <div class="rate"><span>Taper relief <span class="muted">· 3–4, 4–5, 5–6, 6–7 yrs</span></span><span class="num">20/40/60/80%</span></div>
+        <div class="rate"><span>Annual / small gifts exemption</span><span class="num">£3,000 / £250</span></div>
+        <div class="rate"><span>Trust periodic charge</span><span class="num">6% / 10 yrs</span></div>
+      </div>
+    </div>`}
+function cgiCalcs(){return `<div class="stack"><h2>Calculators</h2><div class="calcs">
+  ${cpanel("CGT bill",fld("cgi-g","Gains this year (£)",15500,500)+fld("cgi-sl","Same-year losses (£)",0,500)+fld("cgi-bf","Losses brought forward (£)",0,500)+fld("cgi-ae","Annual exempt amount (£)",3000,500)+fld("cgi-b","Basic rate band left (£)",37700,500),"cgi-c-out")}
+  ${cpanel("IHT on a death estate",fld("cgi-e","Net estate (£)",600000,5000)+fld("cgi-n","NRB available (£)",325000,5000)+fld("cgi-h","Home to direct descendants (£)",0,5000)+fld("cgi-rn","Maximum RNRB (£)",175000,5000)+`<label class="field">Rate<select class="plain" id="cgi-r"><option value="40">40%</option><option value="36">36% (10%+ to charity)</option></select></label>`,"cgi-e-out")}
+  ${cpanel("Taper relief on a PET",fld("cgi-p","PET after exemptions (£)",400000,5000)+fld("cgi-nr","NRB left for it (£)",325000,5000)+fld("cgi-y","Years before death",4.5,0.5),"cgi-t-out")}
+</div></div>`}
+
+/* Chapter 4 Section 3 number practice. Figures from Duke's notes (2025-26); the sums themselves are illustrative. */
+const rdoR2 = x => Math.round(x*100)/100;
+const rdoStamp = v => v<=1000 ? 0 : Math.ceil(v*0.005/5-1e-9)*5;   // paper: 0.5%, rounded up to the next £5
+const rdoSdrt = v => Math.ceil(v*0.5-1e-9)/100;                    // electronic: 0.5%, rounded up to the penny
+Object.assign(GEN,{
+  rdo_stamp(){
+    const paper=Math.random()<0.55, small=paper&&Math.random()<0.2;
+    const v=small?R(300,1000):R(11,900)*100+R(0,99)+(Math.random()<0.5?R(1,9)*1000:0);
+    const ans=paper?rdoStamp(v):rdoSdrt(v), raw=v*0.005;
+    return {q:`An investor buys <b>${gbp0(v)}</b> of shares in a UK company ${paper?"using a <b>paper stock transfer form</b>":"<b>electronically through CREST</b>"}. How much ${paper?"stamp duty":"SDRT"} is payable?`,ans,unit:"£",tol:0.015,
+      work:paper?(v<=1000?`Paper transfers of £1,000 or less pay <b>no stamp duty</b>.`:`0.5% × ${gbp0(v)} = £${raw.toFixed(3).replace(/0$/,"")}, rounded <b>up to the next £5</b> = <b>${gbp0(ans)}</b>.`)
+        :`SDRT = 0.5% × ${gbp0(v)} = £${raw.toFixed(3).replace(/0$/,"")}, rounded up to the penny = <b>${money(ans)}</b>. SDRT is always charged, however small the deal.`};
+  },
+  rdo_vat(){
+    const rate=Math.random()<0.8?20:5, gross=Math.random()<0.5, amt=R(20,5000)+(Math.random()<0.5?R(0,99)/100:0);
+    const ans=rdoR2(gross?amt*rate/(100+rate):amt*rate/100);
+    return {q:`A VAT-registered business sells an item ${gross?`for <b>${money(amt)} including</b>`:`for <b>${money(amt)} before</b>`} VAT at the ${rate===20?"standard":"reduced"} rate of <b>${rate}%</b>. How much VAT ${gross?"is included in the price":"must it add"}?`,ans,unit:"£",tol:0.015,
+      work:gross?`VAT inside a gross price = gross × ${rate}/${100+rate} = ${money(amt)} × ${rate}/${100+rate} = <b>${money(ans)}</b>. Net price ${money(amt-ans)}. Taking ${rate}% of the gross figure (${money(amt*rate/100)}) is the classic mistake.`
+        :`VAT = ${money(amt)} × ${rate}% = <b>${money(ans)}</b>, so the customer pays ${money(amt+ans)}.`};
+  },
+  rdo_ct(){
+    const k=pick(["small","main","fund"]);
+    const p=k==="small"?R(5,50)*1000:k==="main"?R(26,400)*10000:R(10,500)*1000;
+    const rate=k==="small"?19:k==="main"?25:20, ans=p*rate/100;
+    const who=k==="fund"?"An <b>OEIC</b> (taxed as a fund)":"A limited company";
+    return {q:`${who} has taxable profits of <b>${gbp0(p)}</b>. How much corporation tax is payable?`,ans,unit:"£",tol:0.015,
+      work:`${k==="small"?"Profits of £50,000 or less pay the <b>19%</b> small profits rate":k==="main"?"Profits over £250,000 pay the <b>25%</b> main rate":"Unit trusts and OEICs pay <b>20%</b>"}: ${gbp0(p)} × ${rate}% = <b>${gbp0(ans)}</b>.`};
+  },
+  rdo_monthly(){
+    const pay=R(15,80)*100, askNet=Math.random()<0.35;
+    const pa=1047.50, band=3141.67, t=rdoR2(pay-pa);
+    const basic=rdoR2(Math.min(t,band)*0.2), high=rdoR2(Math.max(0,t-band)*0.4), tax=rdoR2(basic+high), ans=askNet?rdoR2(pay-tax):tax;
+    return {q:`An employee is paid <b>${gbp0(pay)} a month</b> and has the standard personal allowance (2025-26 rates, ignore NICs). Using the monthly method, what is ${askNet?"their <b>net pay</b> after income tax":"the <b>income tax</b> for the month"}?`,ans,unit:"£",tol:0.02,
+      work:`Monthly PA = 12,570 ÷ 12 = £1,047.50, so taxable = ${money(pay)} − £1,047.50 = ${money(t)}. ${t>band?`Basic band = 37,700 ÷ 12 = £3,141.67 × 20% = ${money(basic)}. The rest, ${money(rdoR2(t-band))} × 40% = ${money(high)}.`:`All within the monthly basic band (£3,141.67): ${money(t)} × 20% = ${money(basic)}.`} Tax = <b>${money(tax)}</b>${askNet?`, so net pay = ${money(pay)} − ${money(tax)} = <b>${money(ans)}</b>`:""}.`};
+  },
+  rdo_marriage(){
+    const inc=R(14,50)*1000, k=pick(["after","before","saving"]);
+    const before=rdoR2((inc-12570)*0.2), after=rdoR2((inc-12570-1260)*0.2);
+    const ans=k==="after"?after:k==="before"?before:rdoR2(before-after);
+    return {q:`A basic-rate taxpayer earns <b>${gbp0(inc)}</b>. Their spouse, who has no taxable income, transfers the <b>marriage allowance</b> to them. ${k==="after"?"What is their income tax after the transfer?":k==="before"?"What was their income tax <b>before</b> the transfer?":"How much tax does the transfer save?"}`,ans,unit:"£",tol:0.015,
+      work:`Before: (${gbp0(inc)} − £12,570) × 20% = ${money(before)}. After the £1,260 transfer: (${gbp0(inc)} − £12,570 − £1,260) × 20% = ${money(after)}. ${k==="saving"?`Saving = <b>${money(ans)}</b> (always £1,260 × 20% = £252 for a basic-rate recipient).`:`Answer: <b>${money(ans)}</b>.`}`};
+  },
+  rdo_bond(){
+    const X=R(2,40)*5000, n=R(2,20), cap=Math.min(0.05*X*n,X), taken=Math.random()<0.3?0:Math.round(cap*R(0,90)/100/100)*100;
+    const ans=cap-taken;
+    return {q:`A client invested <b>${gbp0(X)}</b> in a life assurance bond <b>${n} years</b> ago and has withdrawn ${taken?`<b>${gbp0(taken)}</b> in total so far`:"nothing so far"}. How much more can they withdraw now without an immediate tax charge?`,ans,unit:"£",
+      work:`The 5% allowance is cumulative and based on the <b>original</b> investment: 5% × ${gbp0(X)} × ${n} years = ${gbp0(0.05*X*n)}${0.05*X*n>X?`, capped at 100% of the investment (${gbp0(X)})`:""}. Less ${gbp0(taken)} already taken = <b>${gbp0(ans)}</b>.`};
+  },
+  rdo_aa(){
+    const used=[0,0,0].map(()=>R(0,12)*5000), unused=used.map(u=>60000-u), cf=unused.reduce((a,b)=>a+b,0);
+    const E=Math.random()<0.4?R(30,150)*1000:R(150,190)*1000, ans=Math.min(E,60000+cf);
+    return {q:`A self-employed client earns <b>${gbp0(E)}</b> this year. Over the last three years they paid ${used.map(gbp0).join(", ")} into pensions. Assume the annual allowance was <b>£60,000</b> in every year. What is the most they can pay into a SIPP this year and get tax relief on all of it?`,ans,unit:"£",
+      work:`Unused allowance carried forward = ${unused.map(gbp0).join(" + ")} = ${gbp0(cf)}. This year's £60,000 + ${gbp0(cf)} = ${gbp0(60000+cf)}. Relief is also capped at 100% of earnings (${gbp0(E)}), so the maximum is <b>${gbp0(ans)}</b>.${E<60000+cf?" Here earnings are the limit.":""}`};
+  }
+});
+
+function rdoRatebook(){return `<div class="panel stack" style="gap:10px">
+      <div style="display:grid;gap:2px"><span class="eyebrow">Figures from your notes · 2025-26</span><span class="muted" style="font-size:13px">The problems use made-up amounts. Rates and thresholds come from your notes.</span></div>
+      <div class="ratebook">
+        <div class="rate"><span>Stamp duty / SDRT <span class="muted">· £5 rounding / penny</span></span><span class="num">0.5%</span></div>
+        <div class="rate"><span>Paper deals with no stamp duty</span><span class="num">≤ £1,000</span></div>
+        <div class="rate"><span>VAT rates <span class="muted">· registration over £90,000</span></span><span class="num">20 / 5 / 0%</span></div>
+        <div class="rate"><span>Corporation tax <span class="muted">· ≤£50k / >£250k / funds</span></span><span class="num">19 / 25 / 20%</span></div>
+        <div class="rate"><span>Monthly PA / basic band</span><span class="num">£1,047.50 / £3,141.67</span></div>
+        <div class="rate"><span>Marriage allowance <span class="muted">· saves</span></span><span class="num">£1,260 / £252</span></div>
+        <div class="rate"><span>Life bond withdrawals <span class="muted">· cumulative</span></span><span class="num">5% a year</span></div>
+        <div class="rate"><span>Pension annual allowance <span class="muted">· carry forward</span></span><span class="num">£60,000 / 3 yrs</span></div>
+        <div class="rate"><span>Automatically UK resident</span><span class="num">183+ days</span></div>
+        <div class="rate"><span>FATCA threshold <span class="muted">· CRS has none</span></span><span class="num">$50,000</span></div>
+      </div>
+    </div>`}
+function rdoCalcs(){return `<div class="stack"><h2>Calculators</h2><div class="calcs">
+  ${cpanel("Stamp duty and SDRT",fld("rdo-sv","Purchase value (£)",2010),"rdo-s-out")}
+  ${cpanel("VAT",fld("rdo-va","Amount (£)",600)+fld("rdo-vr","VAT rate (%)",20)+`<label class="field">Amount is<select class="plain" id="rdo-vg"><option value="1">including VAT</option><option value="0">before VAT</option></select></label>`,"rdo-v-out")}
+  ${cpanel("Life bond 5% withdrawals",fld("rdo-bx","Original investment (£)",50000,1000)+fld("rdo-bn","Policy years so far",6)+fld("rdo-bt","Already withdrawn (£)",8000,100),"rdo-b-out")}
+</div></div>`}
+
 function eqRatebook(){return `<div class="panel stack" style="gap:10px">
       <div style="display:grid;gap:2px"><span class="eyebrow">Figures used · ${FI_REAL.asOf}</span><span class="muted" style="font-size:13px">Share prices and dividends in the problems are made up. Rules come from your notes.</span></div>
       <div class="ratebook">
@@ -3662,6 +4562,15 @@ if(el("rr-s-out")){const xs=String(el("rr-list").value).split(/[,;\s]+/).map(s=>
   if(el("rr-t-out")){const v0=v("rr-v0"),v1=v("rr-v1"),c=v("rr-c"),v2=v("rr-v2"),d=v("rr-d");const r1=v0?v1/v0-1:0,r2=(v1+c)?v2/(v1+c)-1:0;el("rr-t-out").innerHTML=`<span>R₁ = ${(r1*100).toFixed(2)}% · R₂ = ${(r2*100).toFixed(2)}%</span><span>TWRR = ${(((1+r1)*(1+r2)-1)*100).toFixed(2)}%</span><span>HPR with no cash flow = ${v0?((d+v2-v0)/v0*100).toFixed(2):"–"}% <span class="muted">(uses start, end and income)</span></span>`}
 if(el("it-c-out")){const rf=v("it-rf"),rm=v("it-rm"),b=v("it-b"),rp=v("it-rp");const er=rf+b*(rm-rf),a=rp-er;el("it-c-out").innerHTML=`<span>Market risk premium = ${(rm-rf).toFixed(2)}%</span><span>CAPM return = ${er.toFixed(2)}%</span><span>Jensen's alpha = ${a.toFixed(2)}%</span><span>${a>0?"Above the SML: undervalued":a<0?"Below the SML: overvalued":"On the SML: fairly priced"}</span>`}
   if(el("it-a-out")){const rf=v("it-arf"),parts=[1,2,3].map(i=>v("it-b"+i)*v("it-p"+i));el("it-a-out").innerHTML=`<span>Factor contributions = ${parts.map(x=>x.toFixed(2)+"%").join(" + ")}</span><span>Expected return = ${(rf+parts.reduce((s,x)=>s+x,0)).toFixed(2)}%</span>`}
+  if(el("inc-t-out")){const t=incTax(v("inc-ns"),v("inc-sv"),v("inc-dv"));el("inc-t-out").innerHTML=`<span>Personal allowance = ${gbp0(t.pa)} · Taxable = ${gbp0(t.taxable)}</span><span>Non-savings tax = ${money(t.nsTax)}</span><span>Savings tax = ${money(t.svTax)} <span class="muted">(PSA ${gbp0(t.psa)}, starting band ${gbp0(t.srBand)})</span></span><span>Dividend tax = ${money(t.dvTax)}</span><span>Total income tax = ${money(t.tax)}</span>`}
+  if(el("inc-n-out")){const w=v("inc-w");const a=Math.max(0,Math.min(w,967)-242)*0.08,b=Math.max(0,w-967)*0.02,er=Math.max(0,w-175)*0.15;el("inc-n-out").innerHTML=`<span>Employee = ${money(a)} + ${money(b)} = ${money(a+b)} a week</span><span>Employer = ${money(er)} a week</span><span class="muted">${w<125?"Below the LEL: no credit":w<=242?"Between LEL and PT: no NICs, but credited":"Above the PT"}</span>`}
+  if(el("inc-c-out")){const p=v("inc-p"),ti=v("inc-ti"),td=v("inc-td");const c4=Math.max(0,Math.min(p,50270)-12570)*0.06+Math.max(0,p-50270)*0.02;const tt=ti+td>500?ti*0.45+td*0.3935:0;el("inc-c-out").innerHTML=`<span>Class 4 NICs = ${money(c4)}</span><span>Discretionary trust tax = ${money(tt)} <span class="muted">${ti+td>500?"(whole amount, over £500)":"(£500 or less: nil)"}</span></span>`}
+if(el("cgi-c-out")){const g=v("cgi-g"),sl=v("cgi-sl"),bf=v("cgi-bf"),ae=v("cgi-ae"),b=v("cgi-b");const net=Math.max(0,g-sl),afterAe=Math.max(0,net-ae),use=Math.min(bf,afterAe),tx=afterAe-use,lo=Math.min(tx,b),hi=tx-lo;el("cgi-c-out").innerHTML=`<span>Gain after same-year losses = ${money(net)}</span><span>B/f losses used = ${money(use)} · carried forward = ${money(bf-use)}</span><span>Taxable gain = ${money(tx)}</span><span>CGT = ${money(lo*0.18)} at 18% + ${money(hi*0.24)} at 24% = ${money(lo*0.18+hi*0.24)}</span>${net<ae?`<span class="muted">AEA wasted: ${money(ae-net)}</span>`:""}`}
+  if(el("cgi-e-out")){const e=v("cgi-e"),n=v("cgi-n"),h=v("cgi-h"),mx=v("cgi-rn"),r=+el("cgi-r").value;const rn=h>0?Math.min(h,Math.max(0,mx-Math.max(0,e-2000000)/2)):0,ch=Math.max(0,e-n-rn);el("cgi-e-out").innerHTML=`<span>RNRB after taper = ${money(rn)}</span><span>Chargeable = ${money(ch)}</span><span>IHT at ${r}% = ${money(ch*r/100)}</span>`}
+  if(el("cgi-t-out")){const p=v("cgi-p"),nr=v("cgi-nr"),y=v("cgi-y");const rel=y<3?0:y<4?20:y<5?40:y<6?60:y<7?80:100,full=Math.max(0,p-nr)*0.4;el("cgi-t-out").innerHTML=`<span>Tax before taper = ${money(full)}</span><span>Taper relief = ${rel}% (effective rate ${40*(1-rel/100)}%)</span><span>Tax due = ${money(full*(1-rel/100))}</span>`}
+if(el("rdo-s-out")){const s=v("rdo-sv");el("rdo-s-out").innerHTML=`<span>Paper stamp duty = ${money(rdoStamp(s))}${s<=1000?" (£1,000 or less: nil)":""}</span><span>CREST SDRT = ${money(rdoSdrt(s))}</span>`}
+  if(el("rdo-v-out")){const a=v("rdo-va"),r=v("rdo-vr"),g=el("rdo-vg").value==="1";const vat=g?a*r/(100+r):a*r/100;el("rdo-v-out").innerHTML=`<span>VAT = ${money(vat)}</span><span>Net = ${money(g?a-vat:a)} · Gross = ${money(g?a:a+vat)}</span>`}
+  if(el("rdo-b-out")){const x=v("rdo-bx"),n=v("rdo-bn"),t=v("rdo-bt");const cap=Math.min(0.05*x*n,x);el("rdo-b-out").innerHTML=`<span>Cumulative 5% allowance = ${money(cap)}</span><span>Still available now = ${money(Math.max(0,cap-t))}</span>`}
   if(el("p6-out")){const C=v("p6-c"),e=v("p6-e"),b=v("p6-b"),w=v("p6-w")/100;const r=w*e+(1-w)*b;el("p6-out").innerHTML=`<span>Return = ${r.toFixed(2)}%</span><span>Gain = ${money(C*r/100)}</span>`}
 }
 
@@ -3968,7 +4877,34 @@ const FORMULAS = [
   ["it","C3-3.3","Market risk premium","Market risk premium = Rm − Rf",""],
   ["it","C3-3.3","Jensen's alpha","Alpha = Actual return − CAPM return","Positive = beat CAPM. Not proof of skill on its own"],
   ["it","C3-3.4","APT (multi-factor)","ER = Rf + β1 × RP1 + β2 × RP2 + … + βN × RPN","Formula not needed for the exam; each factor has its own beta and premium"],
-  ["it","C3-3.4","Fama-French and Carhart factors","Fama-French: market + SMB + HML. Carhart: + MOM","SMB = small beats big. HML = value beats growth. MOM = momentum"]
+  ["it","C3-3.4","Fama-French and Carhart factors","Fama-French: market + SMB + HML. Carhart: + MOM","SMB = small beats big. HML = value beats growth. MOM = momentum"],
+["inc","C4-1","Tapered personal allowance","PA = £12,570 − (Income − £100,000) ÷ 2","Gone at £125,140"],
+["inc","C4-1","Income tax bands","Taxable = Income − PA. 20% to £37,700, 40% to £125,140, 45% above","Order: non-savings, then savings, then dividends"],
+["inc","C4-1","Starting rate for savings","Band = £5,000 − (Non-savings income − PA)","Gone once other income reaches £17,570"],
+["inc","C4-1","Savings and dividend allowances","PSA £1,000 / £500 / £0. DA £500. Dividend rates 8.75% / 33.75% / 39.35%","Allowances still use up the band"],
+["inc","C4-1","Marriage allowance","Transfer £1,260. Saving = £1,260 × 20% = £252","Recipient basic rate only; backdate 4 years"],
+["inc","C4-2","Discretionary / A&M trust tax","£500 or less: nil. Over £500: whole income × 45% (dividends × 39.35%)","IIP trustees: 20% / 8.75%"],
+["inc","C4-3","REIT PID","20% withheld. Extra: basic 0%, higher 20%, additional 25%","Taxed as rental income; no dividend allowance"],
+["inc","C4-4","Employee Class 1 NIC (weekly)","(min(Pay, £967) − £242) × 8% + (Pay − £967) × 2%","LEL £125 pw: below it, no credit"],
+["inc","C4-4","Employer Class 1 NIC (weekly)","(Pay − £175) × 15%",""],
+["inc","C4-4","Class 4 NIC","(Profits − £12,570) × 6% up to £50,270, then 2% above","No benefit entitlement"],
+["cgi","C4-5.2","Chargeable gain","Gain = Proceeds − Disposal costs − (Purchase cost + Buying costs + Enhancement)","Costs of appealing HMRC's valuation are not allowable"],
+  ["cgi","C4-5.2","CGT bill","Tax = (Gain − £3,000 AEA) × 18% within the unused basic band, 24% above","Trusts: £1,500 exemption, 24%. BADR 14% (18% from 6 Apr 2026)"],
+  ["cgi","C4-5.3","Loss order","Same-year losses before the AEA. Brought-forward losses after the AEA, down to nil","Carry forward indefinitely, never back"],
+  ["cgi","C4-6.1","IHT on death","Tax = (Estate − NRB − RNRB) × 40%","36% if 10%+ of the net estate goes to charity"],
+  ["cgi","C4-6.1","Lifetime tax on a CLT","Tax = (CLT − annual exemptions − NRB left) × 20%","Topped up to 40% if death within 7 years"],
+  ["cgi","C4-6.2","Transferred NRB","Survivor's NRB = £325,000 + £325,000 × % unused on first death","Up to £650,000. Spouse/civil partner only"],
+  ["cgi","C4-6.2","RNRB taper","RNRB = £175,000 − (Estate − £2,000,000) ÷ 2","Gone at £2.35m. Home to direct descendants"],
+  ["cgi","C4-6.4","Taper relief","Tax on failed PET × (1 − relief): 3–4 yrs 20%, 4–5 40%, 5–6 60%, 6–7 80%","Effective rates 32/24/16/8%"],
+  ["cgi","C4-6.6","Quoted share value for IHT","Lower of: Bid + ¼ × (Offer − Bid), or (Highest + Lowest bargain) ÷ 2","Unit trusts: bid price. Cum-dividend"],
+["rdo","C4-8","Stamp duty (paper)","0.5% × consideration, rounded up to the next £5","Nil if £1,000 or less. Buyer pays"],
+["rdo","C4-8","SDRT (electronic, CREST)","0.5% × consideration, rounded up to the penny","Always charged"],
+["rdo","C4-9","VAT","VAT = Net × rate. VAT inside a gross price = Gross × rate ÷ (100 + rate)","20% standard: Gross × 20/120 = Gross ÷ 6"],
+["rdo","C4-10","Corporation tax","19% up to £50,000; 25% over £250,000; marginal relief in between","Unit trusts and OEICs 20%"],
+["rdo","C4-12","Monthly income tax","Monthly PA = £12,570 ÷ 12 = £1,047.50. Basic band = £37,700 ÷ 12 = £3,141.67","Then 20% on the band, 40% above"],
+["rdo","C4-12","Marriage allowance","Recipient's tax = (Income − £12,570 − £1,260) × 20%","Saving = £1,260 × 20% = £252"],
+["rdo","C4-12","Life bond withdrawals","Available = 5% × original investment × years − already taken","Cumulative, up to 100% of the investment"],
+["rdo","C4-12","Pension annual allowance","Max with relief = min(earnings, £60,000 + unused allowance from last 3 years)","Relief on up to 100% of earnings, min £3,600"]
 ].map(([sec,topic,name,f,note])=>({sec,topic,name,f,note}));
 
 /* --- calculator: a small safe expression evaluator --- */
